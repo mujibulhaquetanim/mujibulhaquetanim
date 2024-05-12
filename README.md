@@ -1,4 +1,16 @@
 # 💫 About Me:
+👋 Hello! I’m a computer science graduate with a passion for backend technologies, system architecture, and optimizing code. Let me share a bit more about myself:
+
+Languages: I’m proficient in JavaScript, Python, and Go (which I’m currently learning).
+Database Experience: I’ve worked with both SQL and NoSQL databases, gaining insights into data modeling and query optimization.
+Project Portfolio:
+E-Commerce: I’ve contributed to e-commerce projects, enhancing user experiences and implementing secure payment gateways.
+Chat Apps: I’ve built real-time chat applications, exploring WebSocket communication and message synchronization.
+Management Apps: My work includes creating efficient management tools, streamlining processes for better productivity.
+Machine Learning: In 2023, I immersed myself in machine learning. I used Colab notebooks extensively and completed my final dissertation. Specifically, I applied BERT and ensemble techniques to analyze name entity recognition (gender recognition from Bengali names).
+Integration of ML with Web Development: My focus lies in bridging the gap between machine learning and web development. I believe that combining these fields can lead to powerful and innovative applications.
+Feel free to explore my repository, where you’ll find various scaffolding projects and more! 🚀
+
 🔭 I’m currently working on backend technologies & data science projects.<br>👯 I’m looking to collaborate on Mern stack projects.<br>🌱 I’m currently learning System Design & GoLang.
 
 
