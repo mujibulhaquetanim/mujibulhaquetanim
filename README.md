@@ -10,10 +10,10 @@
 **E-Commerce**: I’ve contributed to e-commerce projects, enhancing user experiences and implementing secure payment gateways. <br>
 **Chat Apps**: I’ve built real-time chat applications, exploring WebSocket communication and message synchronization. <br>
 **Management Apps**: My work includes creating efficient management tools, streamlining processes for better productivity. <br>
-**Static-Dynamic Components**: Throughout my coding adventure, I have created both static and dynamic components. <br>
+**Static-Dynamic-Interactive Components**: During my journey with code, I have produced a plethora of static, dynamic, and interactive components. <br>
 >**Machine Learning**: In 2023, I immersed myself in machine learning. I did participate in a lot of analytical and forecasting work. I used Colab, Jupyter notebooks extensively and completed my final dissertation. Specifically, I applied BERT and ensemble techniques to analyze name entity recognition (gender recognition from Bengali names). <br>
 **Integration of ML with Web Development:** My focus lies in bridging the gap between machine learning and web development. I believe that combining these fields can lead to powerful and innovative applications. <br>
-**Feel free to explore my repositories, where you’ll find various scaffolding projects and more!** 🚀 <br>
+### Feel free to explore my repositories, where you’ll find various scaffolding projects and more! 🚀 <br>
 
 
 # 💻 Tech Stack:
