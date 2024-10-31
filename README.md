@@ -32,3 +32,6 @@ My focus lies in bridging the gap between machine learning and web development. 
 # 📊 GitHub Stats:
 ![](https://github-readme-stats.vercel.app/api/top-langs/?username=mujibulhaquetanim&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact)
 ![](http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=mujibulhaquetanim&theme=transparent)
+<div align="center">
+  <img src="https://streak-stats.demolab.com?user=mujibulhaquetanim&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5&order=3" height="220" alt="streak graph"  />
+</div>
