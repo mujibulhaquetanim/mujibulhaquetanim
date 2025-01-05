@@ -1,19 +1,22 @@
 # 💫 About Me:
-👋 Salam! As a computer science graduate, I am now advancing my expertise with an MSc in Computer Science and Engineering. My passion lies in backend technologies, system architecture, and enhancing code efficiency. Consistency is my mantra. Allow me to tell you more about my journey:
+👋 Salam! As a computer science graduate, I am advancing my expertise with an MSc in Computer Science and Engineering. My passion lies in backend technologies, system architecture, and enhancing code efficiency. Consistency is my mantra. Allow me to tell you more about my journey:
 
-🔭 I am involved in full-stack development projects.<br>🌱 I am currently expanding my knowledge in AI, System Design, and Amazon Web Services.<br>💬 Ask me about Recent Projects, Nodejs, React, DBMS, New Tech, etc. <br> 👋🏼 Open for Project collaboration.
+🔭 I am involved in full-stack development projects.<br>🌱 I am expanding my knowledge of AI, System Design, and Amazon Web Services.<br>💬 Ask me about Recent Projects, Nodejs, React, DBMS, New Tech, etc. <br> 👋🏼 Open for Project collaboration.
 
 Connect me on [LinkedIn](https://www.linkedin.com/in/mujibulhaquetanim/)
 
 ### Why I Chose Not to Have Separate Repositories for Each Project:
 - I chose to keep my Git profile streamlined by limiting the number of repositories.
 - It was a strategic choice to keep things organized.
-- My goal is to develop repositories that will act as an invaluable resource for beginners, providing them with essential insights.
+- My goal is to develop repositories that will be an invaluable resource for beginners, providing them with essential insights.
 
 ## Explore my repositories to find a variety of scaffolding and projects that are currently in development! 🚀 <br>
 
 **I've centralized the hosting of projects within a specific directory, for example:**
-To see projects, go to [Project repository](https://github.com/mujibulhaquetanim/Frontend-Functionalities.git), where I have hosted multiple projects from the directories. Please read the README file for instructions. 
+To see projects, go to 
+- [Front-end repository](https://github.com/mujibulhaquetanim/Frontend-Functionalities.git)
+- [Back-end repository](https://github.com/mujibulhaquetanim/Backend-Functionalities.git)
+- [Component Based repository](https://github.com/mujibulhaquetanim/componentGallery.git), <br> where I have hosted multiple projects from the directories. Please read the README file for instructions. 
 
 # 💻 Tech Stack:
 ### Primary Stack:
