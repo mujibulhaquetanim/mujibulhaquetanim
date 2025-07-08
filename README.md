@@ -3,7 +3,7 @@
 
 🔭 I am involved in full-stack development projects.<br>🌱 I am expanding my knowledge of AI, System Design, and Amazon Web Services.<br>💬 Ask me about Recent Projects, Nodejs, React, DBMS, New Tech, etc. <br> 👋🏼 Open for Project collaboration.
 
-Connect me on [LinkedIn](https://www.linkedin.com/in/mujibulhaquetanim/)
+Connect me on [LinkedIn](https://www.linkedin.com/in/mujibulhaquetanim/) or [Email](mailto:info@mujibulhaquetanim.dev)
 
 ### Why I Chose Not to Have Separate Repositories for Each Project:
 - I chose to keep my Git profile streamlined by limiting the number of repositories.
