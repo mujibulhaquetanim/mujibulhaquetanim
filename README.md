@@ -6,9 +6,7 @@
 Connect me on [LinkedIn](https://www.linkedin.com/in/mujibulhaquetanim/) or [Email](mailto:info@mujibulhaquetanim.dev)
 
 ### Why I Chose Not to Have Separate Repositories for Each Project:
-- I chose to keep my Git profile streamlined by limiting the number of repositories.
-- It was a strategic choice to keep things organized.
-- My goal is to develop repositories that will be an invaluable resource for beginners, providing them with essential insights.
+- Keeping things orderly and avoiding being overloaded with repos was a deliberate decision.
 
 ## Explore my repositories to find a variety of scaffolding and projects that are currently in development! 🚀 <br>
 
