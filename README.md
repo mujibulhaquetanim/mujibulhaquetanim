@@ -5,17 +5,6 @@
 
 Connect me on [LinkedIn](https://www.linkedin.com/in/mujibulhaquetanim/) or [Email](mailto:info@mujibulhaquetanim.dev)
 
-### Why I Chose Not to Have Separate Repositories for Each Project:
-- Keeping things orderly and avoiding being overloaded with repos was a deliberate decision.
-
-## Explore my repositories to find a variety of scaffolding and projects that are currently in development! 🚀 <br>
-
-**I've centralized the hosting of projects within a specific directory, for example:**
-To see projects, go to 
-- [Front-end repository](https://github.com/mujibulhaquetanim/Frontend-Functionalities.git)
-- [Back-end repository](https://github.com/mujibulhaquetanim/Backend-Functionalities.git)
-- [Component Based repository](https://github.com/mujibulhaquetanim/componentGallery.git), <br> where I have hosted multiple projects from the directories. Please read the README file for instructions. 
-
 # 💻 Tech Stack:
 
 ### Primary Stack:
