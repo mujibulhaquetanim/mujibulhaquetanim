@@ -1,5 +1,5 @@
 # 💫 About Me:
-👋 Salam! As a computer science graduate, I am advancing my expertise with an MSc in Computer Science and Engineering. My passion lies in backend technologies, system architecture, and enhancing code efficiency. Consistency is my mantra. Allow me to tell you more about my journey:
+👋 Salam! As a computer science graduate, I am advancing my expertise with an MSc in Computer Science and Engineering. My passion lies in backend technologies, system architecture, and enhancing code efficiency. Consistency is my mantra. Allow me to tell you more about my journe
 
 🔭 I am involved in full-stack development projects.<br>🌱 I am expanding my knowledge of AI, System Design, and Amazon Web Services.<br>💬 Ask me about Recent Projects, Nodejs, React, DBMS, New Tech, etc. <br> 👋🏼 Open for Project collaboration.
 
