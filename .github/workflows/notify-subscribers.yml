@@ -1,0 +1,34 @@
+# Emails confirmed subscribers about newly published articles once the site is live.
+# Netlify reports each deploy to GitHub as a deployment; when a production deploy
+# succeeds, this asks the live site to announce anything new. The endpoint skips articles
+# it has already announced, so re-runs are safe.
+#
+# Needs the repository secret NOTIFY_SECRET (the same value as the site's env var).
+name: Notify subscribers
+
+on:
+  deployment_status:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  notify:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+       contains(github.event.deployment.environment, 'Production'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Announce new articles
+        env:
+          NOTIFY_SECRET: ${{ secrets.NOTIFY_SECRET }}
+        run: |
+          if [ -z "$NOTIFY_SECRET" ]; then
+            echo "NOTIFY_SECRET is not set; skipping."
+            exit 0
+          fi
+          curl --fail-with-body --silent --show-error --max-time 60 \
+            -X POST https://www.mujibulhaquetanim.dev/api/notify \
+            -H "Authorization: Bearer $NOTIFY_SECRET"

@@ -1,3 +1,14 @@
+import { ragFailuresLookEmpty } from "@/content/articles/rag-failures-look-empty";
+import { rlsConnectionRole } from "@/content/articles/rls-connection-role";
+import { zasmateMetaIntegration } from "@/content/articles/zasmate-meta-integration";
+
+/** Article content. `code` spans and blocks keep their text exactly; inline `backticks` render as code. */
+export type Block =
+  | { type: "p"; text: string }
+  | { type: "h2"; text: string }
+  | { type: "list"; items: string[] }
+  | { type: "code"; lang: string; code: string };
+
 export type Post = {
   slug: string;
   title: string;
@@ -5,11 +16,19 @@ export type Post = {
   topics: string[];
   readMinutes: number;
   status: "draft" | "published";
-  /** Where a published article lives. */
+  /** ISO date the article went up. */
+  date?: string;
+  /** The article itself, for posts published on this site. */
+  body?: Block[];
+  /** Where a published article lives, for posts published elsewhere. */
   url?: string;
 };
 
+// Published articles first (written from real Zasmate troubleshooting logs), then drafts.
 export const posts: Post[] = [
+  zasmateMetaIntegration,
+  ragFailuresLookEmpty,
+  rlsConnectionRole,
   {
     slug: "realtime-ai-pipelines-langgraph",
     title: "Building real-time AI pipelines with LangGraph and WebSockets",
@@ -47,3 +66,7 @@ export const posts: Post[] = [
     status: "draft",
   },
 ];
+
+export function getPost(slug: string) {
+  return posts.find((p) => p.slug === slug);
+}

@@ -18,23 +18,61 @@ repo). Never overwrite it with project docs; put those here.
 ## Layout
 
 - `src/content/`: all copy and data (site, projects, profile, posts). Edit content here, not in pages.
+- Articles: `src/content/articles/*.ts`, registered in `posts.ts`. A post with `body` renders
+  at `/writing/[slug]` (BlogPosting JSON-LD, in the sitemap); a post with only `url` forwards
+  there; a draft gets an in-progress page that is `noindex`. Bodies are typed blocks (`p`,
+  `h2`, `list`, `code`) and inline `backticks` render as code. The published ones are written
+  from real Zasmate troubleshooting notes: keep them in plain first person, and never copy in
+  hosts, IPs, app or Page ids, tokens or tenant names.
 - `src/app/`: routes. `/`, `/work`, `/work/[slug]`, `/about`, `/writing`, plus sitemap, robots, OG image.
 - `src/components/`: `message-trace.tsx` is the interactive hero; `section.tsx` holds the shared section layout.
+- `src/lib/seo.ts`: `pageMetadata()` builds each page's full metadata (canonical, Open Graph,
+  Twitter). Next replaces nested metadata objects per segment, so pages must use it rather
+  than setting `openGraph` by hand. Also the site-wide Person and WebSite JSON-LD.
+- `src/components/profile-photo.tsx`: the LinkedIn photo (`site.photo`, via unavatar.io with
+  the GitHub avatar as fallback), allowed by exact `images.remotePatterns` in `next.config.ts`.
 - `src/lib/github.ts`: contribution calendar and streak, fetched server-side with `"use cache"`.
   Success is cached for a day, failure for minutes. It must never throw: an error inside a
   cached function fails the build, and the community API it uses does time out.
 - `next.config.ts` redirects old Vite URLs (`/projects`, `/blogs`, `/tech-stack`, ...).
+
+## Email, subscribers and the CMS
+
+- **Forms** (`src/components/forms.tsx`, actions in `src/app/actions.ts`): the contact form
+  emails `EMAIL_TO` with the visitor as reply-to; the subscribe form sends a double opt-in
+  link (HMAC-signed, 48 h, `src/lib/signed-token.ts`) and only `/subscribe/confirm` adds the
+  address to the Resend segment, after a button press (mail scanners open links). Addresses
+  are checked for shape and MX records first. Bot defence: honeypot field, a minimum fill
+  time and a per-IP limit (in memory, best effort). Without the env vars the forms say
+  email isn't set up instead of failing.
+- **New-article emails** (`src/app/api/notify/route.ts`): `POST` with
+  `Authorization: Bearer $NOTIFY_SECRET`. Sends one Resend broadcast per published article
+  from the last 14 days whose broadcast (`New article: <slug>`) doesn't exist yet, so it is
+  safe to call repeatedly. `.github/workflows/notify-subscribers.yml` calls it after each
+  successful Netlify production deploy. Resend queues the sending and adds the unsubscribe link.
+  One-off announcements: send a broadcast to the same segment from the Resend dashboard.
+- **Env vars** are listed in `.env.example`. Set them in Netlify (site configuration >
+  environment variables) and put `NOTIFY_SECRET` in the GitHub repo secrets too.
+- **CMS**: Decap at `/admin` (`public/admin/`), pinned with an SRI hash. It edits
+  `src/content/recommendations.json` (the `enabled` switch shows or hides `/recommendations`
+  and its nav link). Sign-in is GitHub OAuth via Netlify: create a GitHub OAuth App with
+  callback `https://api.netlify.com/auth/done`, then add it under Netlify > Access &
+  security > OAuth. Only accounts with write access to this repo can save; every save is a
+  commit to `main`. Locally: `npx decap-server` alongside `pnpm dev`.
 
 ## Design rules
 
 The look is deliberately not a template. Keep it that way:
 
 - Four themes, switched from the header (`ThemeSwitcher`) and stored in `localStorage`:
-  - **paper**: light porcelain, accent blue, no ambient motion. The calm one.
+  - **paper**: editorial print. Light porcelain, accent blue, Instrument Serif headings over
+    the mono body, italic section titles, greyscale photo. No motion at all.
   - **terminal**: green phosphor, `>` prompts on section titles, typed headings with a
-    block cursor, scanline overlay, terminal-selection link hovers.
-  - **kinetic**: dark violet with lime and pink, scrambled headings, colour sweep on h1,
-    scroll reveals (`.reveal`, CSS scroll timelines), drifting backdrop, cursor glow.
+    block cursor, scanline overlay, terminal-selection link hovers, tinted square photo.
+  - **kinetic**: the award-site theme. Dark violet with lime and pink, Syne display type,
+    word-rise headings, ring cursor in difference blend and magnetic buttons (`KineticFx`),
+    scroll-velocity marquee (`VelocityMarquee`), film grain, scroll progress line, scroll
+    reveals (`.reveal`), drifting backdrop.
   - **bento**: the original Vite site's slate tile grid and the default theme, because it
     shows nearly everything on one screen. It swaps the home page for a one-screen bento
     layout (`src/components/bento/`) and uses the original fonts (IBM Plex Sans, Bricolage
@@ -49,7 +87,13 @@ The look is deliberately not a template. Keep it that way:
 - Theme-specific effects live in CSS under `[data-theme=…]` selectors or in client
   components that read `useTheme()`. Paper stays effect-free.
 - Reduced motion turns off all theme animation; animated headings render static text.
-- JetBrains Mono for everything except the bento theme. Big headings use tight negative tracking.
+- Each theme must look like its own site, not a recolour. JetBrains Mono is the body face
+  for paper, terminal and kinetic; headings use the theme's display face (Instrument Serif,
+  JetBrains Mono, Syne). Bento uses IBM Plex Sans and Bricolage Grotesque throughout.
+- The theme switcher pings until the visitor has tried another theme once (`theme-explored`
+  in `localStorage`).
+- Never branch render output on `useReducedMotion()` directly; it differs between server and
+  first client render. Use `useHydratedReducedMotion()` from `src/lib/use-reduced-motion.ts`.
 - Base element styles live in `@layer base` and component classes in `@layer components`.
   Unlayered CSS beats Tailwind utilities regardless of specificity, so only `[data-theme=…]`
   overrides should sit outside a layer.

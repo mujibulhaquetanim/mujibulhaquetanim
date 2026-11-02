@@ -1,0 +1,47 @@
+# Decap CMS: edits content files in this repo through GitHub. Every save is a commit
+# to main, and Netlify redeploys the site. Setup steps are in CLAUDE.md ("CMS").
+backend:
+  name: github
+  repo: mujibulhaquetanim/mujibulhaquetanim
+  branch: main
+  # Netlify's GitHub OAuth provider (Site configuration > Access & security > OAuth).
+  base_url: https://api.netlify.com
+  commit_messages:
+    update: "content: update {{collection}} {{slug}} (via CMS)"
+
+# `npx decap-server` + `pnpm dev`, then open http://localhost:3000/admin to edit locally
+# without GitHub. Only used on localhost.
+local_backend: true
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: settings
+    label: Site settings
+    editor:
+      preview: false
+    files:
+      - name: recommendations
+        label: Recommendations
+        file: src/content/recommendations.json
+        format: json
+        fields:
+          - name: enabled
+            label: Show the Recommendations page
+            widget: boolean
+            default: false
+            hint: Off hides the page and its link in the header. It also stays hidden while the list below is empty.
+          - name: items
+            label: Recommendations
+            label_singular: Recommendation
+            widget: list
+            required: false
+            summary: "{{fields.name}}, {{fields.role}}"
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: role, label: Their role and company, widget: string }
+              - { name: relationship, label: How we worked together, widget: string, hint: "For example: Managed me at 3Zero Digital" }
+              - { name: quote, label: Recommendation, widget: text, hint: Paste it exactly as they wrote it. }
+              - { name: url, label: Profile link, widget: string, required: false }
+              - { name: date, label: Date, widget: datetime, required: false, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }

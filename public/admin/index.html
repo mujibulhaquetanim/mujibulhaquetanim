@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Site admin</title>
+    <!-- Explicit, because /admin (no trailing slash) would make Decap look for /config.yml. -->
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+  </head>
+  <body>
+    <!--
+      Decap CMS, pinned with a Subresource Integrity hash: if the CDN ever serves a
+      different file, the browser refuses to run it. Sign-in is GitHub OAuth (through
+      Netlify), and only accounts with write access to the repo can save.
+    -->
+    <script
+      src="https://unpkg.com/decap-cms@3.17.1/dist/decap-cms.js"
+      integrity="sha384-d2pbrhjc5asvSK35gKkrgRIk0Wq+2CQynWnXtSsYWQawXCgBXhcAK737jBAKXT4T"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

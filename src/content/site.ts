@@ -1,3 +1,5 @@
+const githubAvatar = "https://avatars.githubusercontent.com/u/70325279?v=4";
+
 export const site = {
   name: "Mujibul Haque Tanim",
   shortName: "Tanim",
@@ -11,6 +13,11 @@ export const site = {
   description:
     "Full-Stack AI Engineer at MeshEver building multi-tenant backends, real-time systems and AI agents with TypeScript, NestJS, Next.js and PostgreSQL.",
   employer: { name: "MeshEver", url: "https://meshever.com" },
+  // GitHub photo; also the source of the favicon files in src/app.
+  avatar: githubAvatar,
+  // The live LinkedIn photo through unavatar.io, so the site follows LinkedIn changes.
+  // Falls back to the GitHub photo if LinkedIn can't be read. Allowed in next.config.ts.
+  photo: `https://unavatar.io/linkedin/mujibulhaquetanim?fallback=${encodeURIComponent(githubAvatar)}`,
 };
 
 export const socials = [

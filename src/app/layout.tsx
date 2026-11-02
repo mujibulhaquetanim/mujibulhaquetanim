@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Sans, Instrument_Serif, JetBrains_Mono, Syne } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { CursorGlow } from "@/components/cursor-glow";
-import { site, socials } from "@/content/site";
+import { KineticFx } from "@/components/kinetic-fx";
+import { site } from "@/content/site";
+import { jsonLd, siteJsonLd } from "@/lib/seo";
 import { themeBootScript } from "@/lib/theme-config";
 import "./globals.css";
 
@@ -29,6 +30,22 @@ const bricolage = Bricolage_Grotesque({
   preload: false,
 });
 
+// Paper's editorial headings and Kinetic's display face. Like the Bento fonts, they are
+// only fetched when a page in that theme uses them.
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  preload: false,
+});
+
+const syne = Syne({
+  variable: "--font-syne",
+  subsets: ["latin"],
+  preload: false,
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
@@ -36,14 +53,30 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description: site.description,
-  openGraph: {
-    type: "website",
-    url: site.url,
-    siteName: site.name,
-    title: `${site.name}, ${site.role}`,
-    description: site.description,
-  },
+  // Defaults for pages without their own; pages set full blocks via pageMetadata().
+  openGraph: { type: "website", locale: "en_US", siteName: site.name },
   twitter: { card: "summary_large_image", creator: "@mmhtanim" },
+  applicationName: site.name,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  category: "technology",
+  keywords: [
+    site.name,
+    site.shortName,
+    "Full-Stack AI Engineer",
+    "Full-stack developer Bangladesh",
+    "NestJS developer",
+    "Next.js developer",
+    "TypeScript",
+    "Multi-tenant SaaS",
+    "AI agents",
+    "RAG",
+    "WebRTC",
+    "Chattogram",
+  ],
+  // Indexing is the default; stating it here would contradict the noindex Next adds to 404s.
+  robots: { "max-image-preview": "large", "max-snippet": -1 },
+  formatDetection: { email: false, telephone: false, address: false },
 };
 
 export const viewport: Viewport = {
@@ -51,32 +84,12 @@ export const viewport: Viewport = {
   themeColor: "#334155",
 };
 
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: site.name,
-  url: site.url,
-  jobTitle: site.role,
-  worksFor: { "@type": "Organization", ...site.employer },
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Chattogram",
-    addressCountry: "BD",
-  },
-  alumniOf: [
-    { "@type": "CollegeOrUniversity", name: "International Islamic University Chittagong" },
-    { "@type": "CollegeOrUniversity", name: "Port City International University" },
-  ],
-  sameAs: socials.map((s) => s.url),
-  knowsAbout: ["TypeScript", "NestJS", "Next.js", "PostgreSQL", "WebRTC", "LangGraph", "AWS"],
-};
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // data-theme is set by the boot script before React hydrates, hence suppressHydrationWarning.
     <html
       lang="en"
-      className={`${jetbrains.variable} ${plex.variable} ${bricolage.variable} antialiased`}
+      className={`${jetbrains.variable} ${plex.variable} ${bricolage.variable} ${instrument.variable} ${syne.variable} antialiased`}
       suppressHydrationWarning
     >
       <head>
@@ -84,7 +97,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="flex min-h-dvh flex-col">
         <div aria-hidden className="theme-fx" />
-        <CursorGlow />
+        <KineticFx />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
@@ -98,10 +111,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteFooter />
         <script
           type="application/ld+json"
-          // Static site data only; "<" is escaped so the JSON can never close the script tag.
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
-          }}
+          dangerouslySetInnerHTML={{ __html: jsonLd(siteJsonLd) }}
         />
       </body>
     </html>

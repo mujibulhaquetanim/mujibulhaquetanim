@@ -4,6 +4,7 @@ import { FaFileExport } from "react-icons/fa6";
 import { LuArrowUpRight } from "react-icons/lu";
 import { MdEmail } from "react-icons/md";
 import { LocalTime } from "@/components/bento/local-time";
+import { ProfilePhoto } from "@/components/profile-photo";
 import { SpotlightGrid } from "@/components/bento/spotlight-grid";
 import { FeaturedTile } from "@/components/bento/featured-tile";
 import { GithubTile } from "@/components/bento/github-tile";
@@ -40,27 +41,47 @@ export function BentoHome() {
       <SpotlightGrid className="mx-auto grid h-auto max-w-[90rem] auto-rows-auto grid-cols-1 gap-2 px-3 py-2 sm:gap-3 sm:px-4 md:grid-cols-2 lg:h-[calc(100dvh-3.5rem-1px)] lg:grid-cols-12 lg:grid-rows-[minmax(min-content,3fr)_minmax(13.5rem,2fr)_minmax(4.25rem,0.8fr)] lg:gap-2 lg:px-4 xl:gap-4">
         <Cell delay={0} className="col-span-full md:col-span-2 lg:col-span-6">
           <div className="tile flex h-full flex-col gap-3 p-4 sm:gap-4 sm:p-5 lg:gap-2 lg:p-4 xl:gap-4 xl:p-6 2xl:gap-6 2xl:p-8 short:gap-2 short:p-4">
-            <div className="mt-2 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 lg:mt-1 xl:mt-4 short:mt-1">
-              <a
-                href={HIRE_MAILTO}
-                className="btn-press group relative w-fit bg-transparent px-3 py-1.5 text-sm lg:px-3 lg:py-1 lg:text-xs xl:px-4 xl:py-2 xl:text-sm"
-              >
-                <span className="absolute -right-1 -top-1 flex size-2.5 xl:size-3">
-                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-signal/60" />
-                  <span className="relative inline-flex size-full rounded-full bg-signal" />
-                </span>
-                <MdEmail aria-hidden size={16} className="transition-transform duration-300 ease-out-quint group-hover:-rotate-12" />
-                Open to opportunities
-              </a>
-              <LocalTime />
-            </div>
+            {/* Status and greeting on the left; a large tilted portrait on the right. */}
+            <div className="mt-2 flex items-start justify-between gap-4 lg:mt-1 xl:mt-4 short:mt-1">
+              <div className="flex min-w-0 flex-col gap-3 sm:gap-4 lg:gap-2 xl:gap-4 short:gap-2">
+                <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <a
+                    href={HIRE_MAILTO}
+                    className="btn-press group relative w-fit bg-transparent px-3 py-1.5 text-sm lg:px-3 lg:py-1 lg:text-xs xl:px-4 xl:py-2 xl:text-sm"
+                  >
+                    <span className="absolute -right-1 -top-1 flex size-2.5 xl:size-3">
+                      <span className="absolute inline-flex size-full animate-ping rounded-full bg-signal/60" />
+                      <span className="relative inline-flex size-full rounded-full bg-signal" />
+                    </span>
+                    <MdEmail aria-hidden size={16} className="transition-transform duration-300 ease-out-quint group-hover:-rotate-12" />
+                    Open to opportunities
+                  </a>
+                  <LocalTime />
+                </div>
 
-            <h1 className="text-3xl font-medium leading-[1.05] tracking-tight text-white sm:text-4xl lg:text-3xl xl:text-5xl 2xl:text-6xl short:text-3xl">
-              Salam, I&apos;m Mujibul Haque{" "}
-              <span className="bg-gradient-to-r from-white via-sky-300 to-white bg-[length:200%_auto] bg-clip-text font-extrabold text-transparent text-sheen">
-                Tanim
-              </span>
-            </h1>
+                <h1 className="text-3xl font-medium leading-[1.05] tracking-tight text-white sm:text-4xl lg:text-3xl xl:text-5xl 2xl:text-6xl short:text-3xl">
+                  Salam, I&apos;m Mujibul Haque{" "}
+                  <span className="bg-gradient-to-r from-white via-sky-300 to-white bg-[length:200%_auto] bg-clip-text font-extrabold text-transparent text-sheen">
+                    Tanim
+                  </span>
+                </h1>
+              </div>
+
+              <div className="group/photo relative shrink-0">
+                <span
+                  aria-hidden
+                  className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-sky-400/45 via-signal/25 to-transparent blur-2xl"
+                />
+                <ProfilePhoto
+                  size={160}
+                  className="relative size-20 rotate-3 rounded-[1.4rem] border-2 border-white/25 shadow-2xl shadow-black/40 group-hover/photo:rotate-0 group-hover/photo:scale-[1.04] sm:size-24 lg:size-24 xl:size-32 2xl:size-36 short:size-20"
+                />
+                <span
+                  aria-hidden
+                  className="absolute -bottom-1 -right-1 size-4 rounded-full border-[3px] border-slate-600 bg-signal xl:size-5"
+                />
+              </div>
+            </div>
 
             <p className="max-w-[62ch] text-sm leading-relaxed text-slate-300 sm:text-base lg:text-xs xl:text-sm 2xl:text-base">
               <b className="font-semibold text-white">{site.role}</b> building production web applications with

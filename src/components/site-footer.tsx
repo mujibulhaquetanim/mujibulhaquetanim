@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { CopyEmail } from "@/components/copy-email";
 import { LocalTime } from "@/components/local-time";
 import { site, socials } from "@/content/site";
@@ -19,6 +20,9 @@ export function SiteFooter() {
               {site.email}
             </a>
             <CopyEmail />
+            <Link href="/contact" className="btn btn-quiet">
+              Send a message
+            </Link>
           </div>
         </div>
 

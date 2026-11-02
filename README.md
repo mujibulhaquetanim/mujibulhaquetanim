@@ -75,12 +75,22 @@ way to reach me.
 <summary><strong>About this repository</strong></summary>
 
 Besides this profile, the repo holds the source of
-[mujibulhaquetanim.dev](https://www.mujibulhaquetanim.dev):
+[mujibulhaquetanim.dev](https://www.mujibulhaquetanim.dev). It is a rebuild of my earlier
+React and Vite portfolio,
+[mujibv.1](https://github.com/mujibulhaquetanim/Frontend-Functionalities/tree/main/Portfolios/mujibv.1),
+moved to Next.js with server rendering, real SEO metadata, live GitHub data and a theme system.
+The original bento tile grid lives on as the default theme.
 
 - Next.js 16 (App Router, Cache Components, Partial Prefetching, React Compiler)
-- Tailwind CSS 4, `motion`, JetBrains Mono
-- Four switchable themes: **bento** (the default, a one-screen tile grid), **paper** (calm),
-  **terminal** (green phosphor, typed headings) and **kinetic** (scrambled headings, scroll reveals)
+- Tailwind CSS 4, `motion`
+- Four themes that each look like their own site: **bento** (the default, a one-screen tile
+  grid), **paper** (editorial serif, no motion), **terminal** (green phosphor, typed headings)
+  and **kinetic** (word-rise headlines, blend-mode cursor, magnetic buttons, velocity marquee)
+- SEO: per-page canonical and Open Graph data, Person, WebSite, project and breadcrumb
+  structured data, sitemap, web manifest and a generated share image
+- Contact form and double opt-in email subscriptions through Resend, with new articles
+  announced automatically after each deploy
+- Decap CMS at `/admin` (GitHub sign-in) for content such as recommendations
 - An interactive hero that traces one customer message through Zasmate
 - GitHub activity and streak fetched on the server and cached for a day
 

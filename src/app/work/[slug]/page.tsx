@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AnimatedHeading } from "@/components/animated-heading";
-import { getProject, projects } from "@/content/projects";
+import { getProject, projects, type Project } from "@/content/projects";
+import { site } from "@/content/site";
+import { jsonLd, pageMetadata, personId } from "@/lib/seo";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -13,10 +15,46 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return {};
-  return {
-    title: project.title,
+  return pageMetadata({
+    title: `${project.title}, ${project.kind}`,
     description: project.summary,
-    alternates: { canonical: `/work/${project.slug}` },
+    path: `/work/${project.slug}`,
+    image: {
+      url: project.image.src,
+      width: project.image.width,
+      height: project.image.height,
+      alt: project.imageAlt,
+    },
+  });
+}
+
+// Project and breadcrumb structured data, so results can show the trail and the work's author.
+function projectJsonLd(project: Project) {
+  const url = `${site.url}/work/${project.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        "@id": `${url}#work`,
+        name: project.title,
+        genre: project.kind,
+        description: project.description,
+        url,
+        image: new URL(project.image.src, site.url).href,
+        keywords: project.stack.join(", "),
+        author: { "@id": personId },
+        ...(project.live && { sameAs: project.live }),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+          { "@type": "ListItem", position: 2, name: "Work", item: `${site.url}/work` },
+          { "@type": "ListItem", position: 3, name: project.title, item: url },
+        ],
+      },
+    ],
   };
 }
 
@@ -31,6 +69,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
 
   return (
     <article className="mx-auto max-w-[1180px] px-5 pt-12 sm:px-8 lg:pt-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(projectJsonLd(project)) }} />
       <Link href="/work" className="link text-[0.9375rem] text-ink-2">
         All work
       </Link>

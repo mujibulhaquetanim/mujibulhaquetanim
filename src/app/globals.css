@@ -4,11 +4,12 @@
 @custom-variant short (@media (min-width: 1024px) and (max-height: 880px));
 
 /*
-  Four themes, chosen by data-theme on <html> (set before paint by the script in layout.tsx):
-    paper    — light and calm, no ambient motion
+  Four themes, chosen by data-theme on <html> (set before paint by the boot script):
+    bento    — the default: the original slate tile grid, with its own home layout
+    paper    — editorial print: serif headings, italic section titles, no motion
     terminal — green phosphor, prompts, typed headings, faint scanlines
-    kinetic  — dark violet, scrambled headings, scroll reveals, drifting backdrop
-    bento    — the original slate tile grid, with its own home layout
+    kinetic  — award-site motion: display type, word-rise headings, blend cursor,
+               magnetic buttons, velocity marquee, grain and a scroll progress line
   Every theme defines the same tokens; components only ever use the tokens.
 */
 :root,
@@ -192,6 +193,55 @@ p {
   }
 }
 
+/* ── Paper: editorial ─────────────────────────────────── */
+
+/* Serif display headings over a monospace body, like a printed technical journal.
+   Display sizes only: Instrument Serif's spacing breaks down around 20px, so small
+   headings (list titles, project names) stay in bold mono.
+   Unlayered on purpose: it replaces the mono weights and tracking set by utilities. */
+[data-theme="paper"] :is(h1, .section-title, .article h2) {
+  font-family: var(--font-instrument), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+[data-theme="paper"] h1 {
+  font-size: clamp(2.6rem, 5.6vw, 4.5rem);
+  line-height: 1;
+}
+[data-theme="paper"] .section-title {
+  font-size: 1.75rem;
+  font-style: italic;
+}
+[data-theme="paper"] .article h2 {
+  font-size: 2.1rem;
+}
+
+/* Profile photo, per theme. Paper: a round, printed grey portrait, colour on hover. */
+.profile-photo {
+  transition:
+    filter 400ms var(--ease-out-quint),
+    transform 400ms var(--ease-out-quint),
+    rotate 400ms var(--ease-out-quint),
+    scale 400ms var(--ease-out-quint),
+    border-radius 400ms var(--ease-out-quint);
+}
+[data-theme="paper"] .profile-photo {
+  border-radius: 9999px;
+  filter: grayscale(1) contrast(1.1);
+}
+[data-theme="paper"] .profile-photo:hover {
+  filter: none;
+}
+/* Terminal: a square, phosphor-tinted ID shot. */
+[data-theme="terminal"] .profile-photo {
+  border-radius: 3px;
+  filter: grayscale(1) sepia(1) hue-rotate(75deg) saturate(2.4) brightness(0.9);
+}
+/* Kinetic: tilts and grows when hovered. */
+[data-theme="kinetic"] .profile-photo:hover {
+  transform: rotate(-8deg) scale(1.12);
+}
+
 /* ── Terminal ─────────────────────────────────────────── */
 
 [data-theme="terminal"] .section-title::before {
@@ -247,31 +297,107 @@ p {
   animation: drift 26s ease-in-out infinite alternate;
 }
 
-/* Main headings carry a slow colour sweep. */
-[data-theme="kinetic"] h1 [data-heading-visual] {
-  background: linear-gradient(
-    100deg,
-    var(--ink) 0%,
-    var(--ink) 35%,
-    var(--accent) 50%,
-    var(--marigold) 60%,
-    var(--ink) 75%,
-    var(--ink) 100%
-  );
-  background-size: 300% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: sheen 9s linear infinite;
+/* Wide, heavy display type for every heading and the marquee. */
+[data-theme="kinetic"] :is(h1, h2, h3),
+.marquee-band {
+  font-family: var(--font-syne), var(--font-jetbrains), sans-serif;
+  letter-spacing: -0.03em;
 }
 
-@keyframes sheen {
+.marquee-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--ink);
+}
+
+/* Heading words rise out of a mask; fill-mode backwards so hover can take over afterwards. */
+.word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.word-rise {
+  display: inline-block;
+  animation: word-rise 900ms var(--ease-out-quint) backwards;
+  transition:
+    color 300ms var(--ease-out-quint),
+    transform 300ms var(--ease-out-quint);
+}
+.word-rise:hover {
+  color: var(--accent);
+  transform: skewX(-10deg);
+}
+@keyframes word-rise {
   from {
-    background-position: 100% 0;
+    transform: translateY(110%) rotate(6deg);
   }
-  to {
-    background-position: -200% 0;
-  }
+}
+
+/* Ring cursor from KineticFx: inverts whatever is under it and swells over clickables. */
+.kinetic-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 80;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1.5px solid #fff;
+  border-radius: 9999px;
+  pointer-events: none;
+  mix-blend-mode: difference;
+  transition:
+    width 300ms var(--ease-out-quint),
+    height 300ms var(--ease-out-quint),
+    margin 300ms var(--ease-out-quint),
+    background-color 300ms var(--ease-out-quint),
+    opacity 300ms ease;
+}
+.kinetic-cursor[data-hover] {
+  width: 72px;
+  height: 72px;
+  margin: -36px 0 0 -36px;
+  background: #fff;
+}
+
+/* Magnetic targets ease back when released (KineticFx sets `translate`). */
+[data-theme="kinetic"] :is(header a, header button) {
+  transition:
+    translate 350ms var(--ease-out-quint),
+    color 160ms ease,
+    border-color 160ms ease;
+}
+[data-theme="kinetic"] .btn {
+  transition:
+    translate 350ms var(--ease-out-quint),
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 200ms ease,
+    transform 120ms ease;
+}
+
+/* Project rows: the title slides and lights up. */
+[data-theme="kinetic"] .group h3 {
+  transition:
+    color 300ms var(--ease-out-quint),
+    translate 300ms var(--ease-out-quint);
+}
+[data-theme="kinetic"] .group:hover h3 {
+  color: var(--accent);
+  translate: 10px 0;
+  text-decoration: none;
+}
+
+/* Film grain over everything; it only jitters when motion is allowed (see below). */
+[data-theme="kinetic"] body::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.08;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 [data-theme="kinetic"] .btn-solid:hover {
@@ -300,6 +426,52 @@ p {
       animation-timeline: view();
       animation-range: entry 0% cover 28%;
     }
+  }
+
+  [data-theme="kinetic"] body::after {
+    animation: grain 0.8s steps(5) infinite;
+  }
+
+  /* Reading progress line across the top of the page. */
+  @supports (animation-timeline: scroll()) {
+    [data-theme="kinetic"] body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 75;
+      height: 3px;
+      transform-origin: left;
+      background: linear-gradient(90deg, var(--accent), var(--marigold));
+      animation: progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes grain {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-4%, 3%);
+  }
+  50% {
+    transform: translate(3%, -5%);
+  }
+  75% {
+    transform: translate(-2%, -3%);
+  }
+  100% {
+    transform: translate(5%, 2%);
+  }
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }
 
