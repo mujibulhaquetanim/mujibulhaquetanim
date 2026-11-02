@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { AnimatedHeading } from "@/components/animated-heading";
 import { MessageTrace } from "@/components/message-trace";
 import { Section } from "@/components/section";
 import { GithubActivity } from "@/components/github-activity";
@@ -17,10 +18,14 @@ export default function HomePage() {
     <>
       <div className="mx-auto grid max-w-[1180px] gap-12 px-5 pt-14 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:pt-24">
         <div className="lg:col-span-7 lg:pr-6">
+          <p aria-hidden className="only-terminal mb-4 text-sm text-ink-2">
+            <span className="text-accent">tanim@chattogram</span>:~$ cat about.txt
+          </p>
           {/* Non-breaking hyphens (U+2011) keep "multi-tenant" and "real-time" on one line. */}
-          <h1 className="text-[clamp(2.4rem,5vw,4.1rem)] font-extrabold leading-[1.03] tracking-[-0.025em]">
-            I build multi‑tenant backends, real‑time systems and AI agents.
-          </h1>
+          <AnimatedHeading
+            text="I build multi‑tenant backends, real‑time systems and AI agents."
+            className="text-[clamp(2rem,4.1vw,3.3rem)] font-extrabold leading-[1.08] tracking-[-0.04em]"
+          />
           <p className="mt-6 max-w-[56ch] text-lg text-ink-2">
             I&apos;m Tanim, a full-stack AI engineer at{" "}
             <a href={site.employer.url} className="link text-ink" target="_blank" rel="noopener noreferrer">
@@ -48,13 +53,13 @@ export default function HomePage() {
       </div>
 
       <Section id="work" title="Selected work" intro="Products I've built and shipped, most recent first.">
-        <article className="grid gap-6 md:grid-cols-[1.25fr_1fr] md:items-end">
+        <article className="reveal grid gap-6 md:grid-cols-[1.25fr_1fr] md:items-end">
           <Link href={`/work/${featured.slug}`} className="group block overflow-hidden rounded-md border border-line">
             <Image
               src={featured.image}
               alt={featured.imageAlt}
               sizes="(min-width: 1024px) 480px, (min-width: 768px) 55vw, 100vw"
-              className="aspect-[16/10] w-full object-cover object-top transition-transform duration-500 ease-out-quint group-hover:scale-[1.02]"
+              className="aspect-[16/10] w-full bg-white object-cover object-top transition-transform duration-500 ease-out-quint group-hover:scale-[1.02]"
             />
           </Link>
           <div>
@@ -92,7 +97,7 @@ export default function HomePage() {
           {experience.map((item) => (
             <li
               key={`${item.year}-${item.title}`}
-              className="grid gap-1 border-b border-line py-5 sm:grid-cols-[6rem_1fr] sm:gap-6"
+              className="reveal grid gap-1 border-b border-line py-5 sm:grid-cols-[6rem_1fr] sm:gap-6"
             >
               <p className="text-[0.9375rem] tabular-nums text-ink-2">
                 {item.year}
@@ -102,7 +107,7 @@ export default function HomePage() {
                 <h3 className="text-lg font-bold leading-snug">
                   {item.title}
                   {item.current && (
-                    <span className="ml-2 align-middle text-[0.8125rem] font-semibold text-cobalt [font-variation-settings:'wdth'_100]">
+                    <span className="ml-2 align-middle text-[0.8125rem] font-semibold text-accent">
                       Now
                     </span>
                   )}
@@ -120,7 +125,7 @@ export default function HomePage() {
       <Section id="toolbox" title="What I work with" intro="Grouped by the problems they solve, not by logo.">
         <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2">
           {toolbox.map(({ group, items }) => (
-            <div key={group} className="border-t border-line pt-4">
+            <div key={group} className="reveal border-t border-line pt-4">
               <dt className="font-bold">{group}</dt>
               <dd className="mt-1 text-ink-2">{items.join(", ")}</dd>
             </div>
@@ -129,9 +134,11 @@ export default function HomePage() {
       </Section>
 
       <Section id="activity" title="On GitHub" intro="I write code most days, in public where I can.">
-        <Suspense fallback={<p className="text-ink-2">Loading the contribution calendar.</p>}>
+        <div className="reveal">
+          <Suspense fallback={<p className="text-ink-2">Loading the contribution calendar.</p>}>
           <GithubActivity />
-        </Suspense>
+          </Suspense>
+        </div>
       </Section>
     </>
   );

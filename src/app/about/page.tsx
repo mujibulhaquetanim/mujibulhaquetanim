@@ -44,7 +44,7 @@ export default function AboutPage() {
           {principles.map((line) => (
             <li
               key={line}
-              className="text-[clamp(1.375rem,2.6vw,2rem)] font-bold leading-snug tracking-tight [font-variation-settings:'wdth'_112]"
+              className="text-[clamp(1.375rem,2.6vw,2rem)] font-bold leading-snug tracking-tight"
             >
               {line}
             </li>
@@ -73,7 +73,7 @@ export default function AboutPage() {
         <ul className="space-y-6">
           {research.map((paper) => (
             <li key={paper.title} className="border-t border-line pt-4">
-              <h3 className="max-w-[60ch] text-lg font-bold leading-snug [font-variation-settings:'wdth'_100]">
+              <h3 className="max-w-[60ch] text-lg font-bold leading-snug">
                 {paper.url ? (
                   <a href={paper.url} target="_blank" rel="noopener noreferrer" className="link">
                     {paper.title}

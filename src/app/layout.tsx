@@ -1,20 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Martian_Mono, Mona_Sans } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { CursorGlow } from "@/components/cursor-glow";
 import { site, socials } from "@/content/site";
+import { themeBootScript } from "@/lib/theme";
 import "./globals.css";
 
-const mona = Mona_Sans({
-  variable: "--font-mona",
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
-  axes: ["wdth"],
-});
-
-const martian = Martian_Mono({
-  variable: "--font-martian",
-  subsets: ["latin"],
-  axes: ["wdth"],
 });
 
 export const metadata: Metadata = {
@@ -37,7 +32,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#edf0ee" },
-    { media: "(prefers-color-scheme: dark)", color: "#131c1b" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a110d" },
   ],
 };
 
@@ -63,8 +58,14 @@ const personJsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${mona.variable} ${martian.variable} antialiased`}>
+    // data-theme is set by the boot script before React hydrates, hence suppressHydrationWarning.
+    <html lang="en" className={`${jetbrains.variable} antialiased`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
       <body className="flex min-h-dvh flex-col">
+        <div aria-hidden className="theme-fx" />
+        <CursorGlow />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"

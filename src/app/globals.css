@@ -1,34 +1,48 @@
 @import "tailwindcss";
 
 /*
-  Tokens. Light is a cool porcelain with green-black ink; cobalt is the only
-  interactive colour. Marigold is reserved for the hero trace, nowhere else.
+  Three themes, chosen by data-theme on <html> (set before paint by the script in layout.tsx):
+    paper    — light and calm, no ambient motion
+    terminal — green phosphor, prompts, typed headings, faint scanlines
+    kinetic  — dark violet, scrambled headings, scroll reveals, drifting backdrop
+  Every theme defines the same tokens; components only ever use the tokens.
 */
-:root {
+:root,
+[data-theme="paper"] {
   --paper: #edf0ee;
   --paper-2: #e3e8e5;
   --ink: #17201c;
   --ink-2: #55615c;
   --line: #cdd4d0;
-  --cobalt: #2443d6;
+  --accent: #2443d6;
   --marigold: #e9a825;
   /* Marigold dark enough for small text on paper (4.8:1). */
   --marigold-ink: #8a5a00;
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #131c1b;
-    --paper-2: #1a2523;
-    --ink: #e4eae7;
-    --ink-2: #9aa7a2;
-    --line: #2a3533;
-    --cobalt: #8fa2ff;
-    --marigold: #f0bc4c;
-    --marigold-ink: #f0bc4c;
-    color-scheme: dark;
-  }
+[data-theme="terminal"] {
+  --paper: #0a110d;
+  --paper-2: #101a14;
+  --ink: #c9f5d2;
+  --ink-2: #6fa983;
+  --line: #1e3326;
+  --accent: #3dff8f;
+  --marigold: #ffb000;
+  --marigold-ink: #ffb000;
+  color-scheme: dark;
+}
+
+[data-theme="kinetic"] {
+  --paper: #0d0b14;
+  --paper-2: #161325;
+  --ink: #f2efff;
+  --ink-2: #a39dc2;
+  --line: #2b2742;
+  --accent: #c4ff3a;
+  --marigold: #ff5fd2;
+  --marigold-ink: #ff7fdc;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -37,35 +51,32 @@
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-line: var(--line);
-  --color-cobalt: var(--cobalt);
+  --color-accent: var(--accent);
   --color-marigold: var(--marigold);
   --color-marigold-ink: var(--marigold-ink);
-  --font-sans: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-martian), ui-monospace, monospace;
+  --font-sans: var(--font-jetbrains), ui-monospace, monospace;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* The page colour lives on <html> only, so the theme backdrop can sit behind <body> content. */
 html {
   background: var(--paper);
   -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-size: 1.0625rem;
-  line-height: 1.6;
-  /* Mona Sans sets a narrow word space; open it slightly for running text. */
-  word-spacing: 0.06em;
+  font-size: 1rem;
+  line-height: 1.65;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "calt" 1;
 }
 
-/* Headings use the wide cut of the same family instead of a second typeface. */
 h1,
 h2,
 h3 {
-  font-variation-settings: "wdth" 116;
   text-wrap: balance;
 }
 
@@ -74,13 +85,19 @@ p {
 }
 
 :focus-visible {
-  outline: 2px solid var(--cobalt);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--cobalt) 22%, transparent);
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+/* Cross-fade between themes when the browser supports view transitions. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 320ms;
 }
 
 @layer components {
@@ -92,7 +109,9 @@ p {
     text-underline-offset: 0.22em;
     transition:
       text-decoration-color 160ms ease,
-      text-decoration-thickness 160ms ease;
+      text-decoration-thickness 160ms ease,
+      background-color 120ms ease,
+      color 120ms ease;
   }
   .link:hover {
     text-decoration-color: currentColor;
@@ -105,13 +124,13 @@ p {
     gap: 0.5rem;
     border-radius: 8px;
     padding: 0.6rem 1rem;
-    font-size: 0.9375rem;
-    font-weight: 600;
+    font-size: 0.875rem;
+    font-weight: 700;
     line-height: 1.2;
     transition:
       background-color 160ms ease,
       color 160ms ease,
-      box-shadow 160ms ease,
+      box-shadow 200ms ease,
       transform 120ms ease;
   }
   .btn:active {
@@ -122,13 +141,172 @@ p {
     color: var(--paper);
   }
   .btn-solid:hover {
-    background: var(--cobalt);
+    background: var(--accent);
+    color: var(--paper);
   }
   .btn-quiet {
     box-shadow: inset 0 0 0 1px var(--line);
   }
   .btn-quiet:hover {
     box-shadow: inset 0 0 0 1px var(--ink);
+  }
+
+  /* Block cursor used by typed headings in the terminal theme. */
+  .caret {
+    display: inline-block;
+    width: 0.55em;
+    height: 0.9em;
+    margin-left: 0.08em;
+    vertical-align: -0.08em;
+    background: var(--accent);
+    animation: caret-blink 1.05s steps(1) infinite;
+  }
+
+  /* Fixed layer for theme atmosphere; empty in paper. */
+  .theme-fx {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    display: none;
+  }
+}
+
+/* ── Terminal ─────────────────────────────────────────── */
+
+[data-theme="terminal"] .section-title::before {
+  content: "> ";
+  color: var(--accent);
+}
+
+/* Links highlight like a terminal selection. */
+[data-theme="terminal"] .link:hover {
+  background: var(--accent);
+  color: var(--paper);
+  text-decoration-color: transparent;
+}
+
+[data-theme="terminal"] .btn {
+  border-radius: 2px;
+}
+
+[data-theme="terminal"] .theme-fx {
+  display: block;
+  z-index: 60;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 2px,
+    rgba(0, 0, 0, 0.18) 2px 3px
+  );
+  opacity: 0.35;
+}
+
+[data-theme="terminal"] h1 {
+  text-shadow: 0 0 18px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+/* Elements that only make sense in one theme, such as the shell prompt above the hero. */
+.only-terminal {
+  display: none;
+}
+[data-theme="terminal"] .only-terminal {
+  display: block;
+}
+
+/* ── Kinetic ──────────────────────────────────────────── */
+
+[data-theme="kinetic"] .theme-fx {
+  display: block;
+  z-index: -1;
+  inset: -15%;
+  background:
+    radial-gradient(38% 32% at 22% 24%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    radial-gradient(34% 30% at 78% 30%, color-mix(in srgb, var(--marigold) 16%, transparent), transparent 70%),
+    radial-gradient(44% 40% at 50% 88%, rgba(96, 72, 255, 0.2), transparent 70%);
+  filter: blur(30px);
+  animation: drift 26s ease-in-out infinite alternate;
+}
+
+/* Main headings carry a slow colour sweep. */
+[data-theme="kinetic"] h1 [data-heading-visual] {
+  background: linear-gradient(
+    100deg,
+    var(--ink) 0%,
+    var(--ink) 35%,
+    var(--accent) 50%,
+    var(--marigold) 60%,
+    var(--ink) 75%,
+    var(--ink) 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: sheen 9s linear infinite;
+}
+
+@keyframes sheen {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+[data-theme="kinetic"] .btn-solid:hover {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 8px 30px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+[data-theme="kinetic"] .thumb {
+  transition: transform 500ms var(--ease-out-quint);
+}
+[data-theme="kinetic"] .group:hover .thumb {
+  transform: rotate(-2.5deg) scale(1.07);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Animated headings stay hidden until hydrated (see AnimatedHeading). */
+  [data-theme="terminal"] [data-heading-visual]:not([data-ready]),
+  [data-theme="kinetic"] [data-heading-visual]:not([data-ready]) {
+    visibility: hidden;
+  }
+
+  /* Sections rise in as they scroll into view; CSS-only, so browsers without support just show them. */
+  @supports (animation-timeline: view()) {
+    [data-theme="kinetic"] .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(48px) scale(0.97);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(-4%, -3%, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(4%, 3%, 0) rotate(8deg);
+  }
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
   }
 }
 

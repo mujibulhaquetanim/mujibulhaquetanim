@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AnimatedHeading } from "@/components/animated-heading";
 import { getProject, projects } from "@/content/projects";
 
 export function generateStaticParams() {
@@ -37,9 +38,10 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
       <div className="mt-8 grid gap-10 lg:grid-cols-12">
         <header className="lg:col-span-7">
           <p className="text-ink-2">{project.kind}</p>
-          <h1 className="mt-1 text-[clamp(2.5rem,6vw,4.5rem)] font-extrabold leading-[1] tracking-[-0.025em]">
-            {project.title}
-          </h1>
+          <AnimatedHeading
+            text={project.title}
+            className="mt-1 text-[clamp(2.25rem,5vw,3.75rem)] font-extrabold leading-[1.05] tracking-[-0.04em]"
+          />
           <p className="mt-6 max-w-[62ch] text-lg leading-relaxed">{project.description}</p>
         </header>
 
@@ -72,7 +74,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
           src={project.image}
           alt={project.imageAlt}
           sizes="(min-width: 1180px) 1116px, 100vw"
-          className="mx-auto max-h-[80vh] w-auto object-contain"
+          className="mx-auto max-h-[80vh] w-auto bg-white object-contain"
           preload
         />
       </figure>
@@ -81,7 +83,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
         <p className="text-[0.9375rem] text-ink-2">Next project</p>
         <Link
           href={`/work/${next.slug}`}
-          className="mt-1 inline-block text-[1.75rem] font-extrabold tracking-tight decoration-2 underline-offset-[0.15em] hover:underline [font-variation-settings:'wdth'_116]"
+          className="mt-1 inline-block text-[1.75rem] font-extrabold tracking-tight decoration-2 underline-offset-[0.15em] hover:underline"
         >
           {next.title}
         </Link>

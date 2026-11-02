@@ -3,10 +3,10 @@ import { site } from "@/content/site";
 
 const LEVELS = [
   "bg-line",
-  "bg-cobalt/30",
-  "bg-cobalt/55",
-  "bg-cobalt/80",
-  "bg-cobalt",
+  "bg-accent/30",
+  "bg-accent/55",
+  "bg-accent/80",
+  "bg-accent",
 ];
 
 const dateFormat = new Intl.DateTimeFormat("en-GB", {

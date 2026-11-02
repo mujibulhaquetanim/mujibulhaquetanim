@@ -28,7 +28,7 @@ export default function WritingPage() {
           {[...published, ...drafts].map((post) => {
             const body = (
               <>
-                <h2 className="text-xl font-bold leading-snug [font-variation-settings:'wdth'_108]">
+                <h2 className="text-xl font-bold leading-snug">
                   {post.title}
                 </h2>
                 <p className="mt-2 text-ink-2">{post.excerpt}</p>
