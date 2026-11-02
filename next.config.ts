@@ -4,6 +4,18 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
+  images: {
+    // Exact matches only: the profile photo (site.photo) and its GitHub fallback.
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "unavatar.io",
+        pathname: "/linkedin/mujibulhaquetanim",
+        search: `?fallback=${encodeURIComponent("https://avatars.githubusercontent.com/u/70325279?v=4")}`,
+      },
+      { protocol: "https", hostname: "avatars.githubusercontent.com", pathname: "/u/70325279", search: "?v=4" },
+    ],
+  },
   turbopack: {
     rules: {
       "*.css": {
@@ -11,6 +23,10 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  // The CMS is a static page in public/admin.
+  async rewrites() {
+    return [{ source: "/admin", destination: "/admin/index.html" }];
   },
   // URLs from the previous Vite version of the site, kept so old links and search results still land.
   async redirects() {

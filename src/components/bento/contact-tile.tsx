@@ -44,7 +44,11 @@ export function ContactTile() {
     <section aria-label="Contact" className="tile flex h-full flex-wrap items-center justify-between gap-3 px-4 py-3 lg:py-2 xl:px-5">
       <div className="flex min-w-0 items-center gap-3">
         <div className="min-w-0">
-          <h2 className="text-lg font-bold leading-tight tracking-tight text-white lg:text-base xl:text-xl">Let&apos;s talk</h2>
+          <h2 className="text-lg font-bold leading-tight tracking-tight text-white lg:text-base xl:text-xl">
+            <Link href="/contact" className="underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white">
+              Let&apos;s talk
+            </Link>
+          </h2>
           <p className="truncate text-[11px] text-slate-300 xl:text-xs">{site.email}</p>
         </div>
         <button
@@ -81,7 +85,7 @@ export function ContactTile() {
           </li>
         ))}
         <li>
-          <Link href="/writing" aria-label={`Writing: ${posts.length} drafts`} title="Writing" className={iconButton}>
+          <Link href="/writing" aria-label={`Writing: ${posts.filter((p) => p.body).length} articles`} title="Writing" className={iconButton}>
             <GrArticle aria-hidden className={`${iconClass} group-hover/icon:-rotate-6`} />
           </Link>
         </li>

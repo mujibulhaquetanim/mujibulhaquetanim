@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { PageIntro, Section } from "@/components/section";
 import { ProjectRow } from "@/components/project-row";
 import { codeSamples, projects } from "@/content/projects";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Work",
   description:
     "Projects by Mujibul Haque Tanim: Zasmate, multi-tenant e-commerce, marketplaces and more, plus backend code samples.",
-  alternates: { canonical: "/work" },
-};
+  path: "/work",
+});
 
 export default function WorkPage() {
   return (

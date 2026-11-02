@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import { PageIntro, Section } from "@/components/section";
 import { experience, focusAreas, principles, research, toolbox } from "@/content/profile";
 import { site } from "@/content/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
     "How Mujibul Haque Tanim works: backend architecture, real-time systems, AI workflows and cloud delivery, plus education and research.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

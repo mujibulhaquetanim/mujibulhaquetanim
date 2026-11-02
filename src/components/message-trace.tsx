@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useHydratedReducedMotion } from "@/lib/use-reduced-motion";
 
 type Step = { title: string; detail: string };
 type Scenario = {
@@ -58,7 +59,7 @@ const SCENARIOS: Record<"question" | "refund", Scenario> = {
 const STEP_MS = 720;
 
 export function MessageTrace() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useHydratedReducedMotion();
   const [scenarioKey, setScenarioKey] = useState<keyof typeof SCENARIOS>("question");
   const [run, setRun] = useState(0);
   // -1 = message just arrived; steps.length = finished.

@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { AnimatedHeading } from "@/components/animated-heading";
 import { MessageTrace } from "@/components/message-trace";
+import { VelocityMarquee } from "@/components/velocity-marquee";
+import { ProfilePhoto } from "@/components/profile-photo";
 import { LayoutSwitch } from "@/components/bento/layout-switch";
 import { BentoHome } from "@/components/bento/bento-home";
 import { Section } from "@/components/section";
@@ -11,6 +14,9 @@ import { ProjectRow } from "@/components/project-row";
 import { projects } from "@/content/projects";
 import { experience, toolbox } from "@/content/profile";
 import { site } from "@/content/site";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({ description: site.description, path: "/" });
 
 const featured = projects.find((p) => p.featured)!;
 const selected = projects.filter((p) => !p.featured).slice(0, 4);
@@ -24,6 +30,7 @@ function StandardHome() {
     <>
       <div className="mx-auto grid max-w-[1180px] gap-12 px-5 pt-14 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:pt-24">
         <div className="lg:col-span-7 lg:pr-6">
+          <ProfilePhoto size={160} className="mb-7 size-24 rounded-[1.75rem] border border-line shadow-xl shadow-black/10 sm:size-28" />
           <p aria-hidden className="only-terminal mb-4 text-sm text-ink-2">
             <span className="text-accent">tanim@chattogram</span>:~$ cat about.txt
           </p>
@@ -57,6 +64,8 @@ function StandardHome() {
           <MessageTrace />
         </div>
       </div>
+
+      <VelocityMarquee />
 
       <Section id="work" title="Selected work" intro="Products I've built and shipped, most recent first.">
         <article className="reveal grid gap-6 md:grid-cols-[1.25fr_1fr] md:items-end">

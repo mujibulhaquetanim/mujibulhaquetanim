@@ -11,9 +11,11 @@ export function CountUp({ to, suffix = "", duration = 1.1 }: { to: number; suffi
   const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (!inView || reduceMotion) return;
+    if (!inView) return;
+    // Reduced motion jumps straight to the number. Rendering `to` directly instead would
+    // differ from the server's 0 and break hydration.
     const controls = animate(0, to, {
-      duration,
+      duration: reduceMotion ? 0 : duration,
       ease: [0.22, 1, 0.36, 1],
       onUpdate: (v) => setValue(Math.round(v)),
     });
@@ -22,7 +24,7 @@ export function CountUp({ to, suffix = "", duration = 1.1 }: { to: number; suffi
 
   return (
     <span ref={ref} className="tabular-nums">
-      {reduceMotion ? to : value}
+      {value}
       {suffix}
     </span>
   );
