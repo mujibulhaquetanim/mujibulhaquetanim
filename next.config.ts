@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
+  // Netlify's COMMIT_REF, baked in at build so GET /api/notify can say which commit is live.
+  env: { BUILD_COMMIT: process.env.COMMIT_REF ?? "local" },
   images: {
     // Exact matches only: the profile photo (site.photo) and its GitHub fallback.
     remotePatterns: [

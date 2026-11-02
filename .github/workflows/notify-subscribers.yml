@@ -1,34 +1,50 @@
-# Emails confirmed subscribers about newly published articles once the site is live.
-# Netlify reports each deploy to GitHub as a deployment; when a production deploy
-# succeeds, this asks the live site to announce anything new. The endpoint skips articles
-# it has already announced, so re-runs are safe.
+# Emails confirmed subscribers about newly published articles once they are live.
+# Netlify doesn't report deploys back to GitHub here, so on each push to main this waits
+# until the live site says it was built from this commit (GET /api/notify), then asks it
+# to announce anything new. The endpoint skips articles it has already announced, so
+# re-runs and pushes without new articles are harmless.
 #
 # Needs the repository secret NOTIFY_SECRET (the same value as the site's env var).
 name: Notify subscribers
 
 on:
-  deployment_status:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions: {}
 
+concurrency:
+  group: notify-subscribers
+  cancel-in-progress: false
+
 jobs:
   notify:
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.deployment_status.state == 'success' &&
-       contains(github.event.deployment.environment, 'Production'))
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 25
+    env:
+      SITE: https://mujibulhaquetanim.dev
+      NOTIFY_SECRET: ${{ secrets.NOTIFY_SECRET }}
+      WANT: ${{ github.sha }}
+      EVENT: ${{ github.event_name }}
     steps:
+      - name: Wait for this commit to be live
+        if: env.EVENT == 'push'
+        run: |
+          for i in $(seq 1 80); do
+            live=$(curl -s --max-time 15 "$SITE/api/notify" | sed -n 's/.*"commit":"\([^"]*\)".*/\1/p')
+            if [ "$live" = "$WANT" ]; then echo "Live: $live"; exit 0; fi
+            echo "Live commit '$live', waiting for $WANT"
+            sleep 15
+          done
+          echo "Deploy of $WANT never went live; not announcing." && exit 1
+
       - name: Announce new articles
-        env:
-          NOTIFY_SECRET: ${{ secrets.NOTIFY_SECRET }}
         run: |
           if [ -z "$NOTIFY_SECRET" ]; then
             echo "NOTIFY_SECRET is not set; skipping."
             exit 0
           fi
           curl --fail-with-body --silent --show-error --max-time 60 \
-            -X POST https://mujibulhaquetanim.dev/api/notify \
+            -X POST "$SITE/api/notify" \
             -H "Authorization: Bearer $NOTIFY_SECRET"

@@ -49,7 +49,7 @@ repo). Never overwrite it with project docs; put those here.
   `Authorization: Bearer $NOTIFY_SECRET`. Sends one Resend broadcast per published article
   from the last 14 days whose broadcast (`New article: <slug>`) doesn't exist yet, so it is
   safe to call repeatedly. `.github/workflows/notify-subscribers.yml` calls it after each
-  successful Netlify production deploy. Resend queues the sending and adds the unsubscribe link.
+  push to `main`, once the live site reports that commit (`GET /api/notify`). Resend queues the sending and adds the unsubscribe link.
   One-off announcements: send a broadcast to the same segment from the Resend dashboard.
 - **Env vars** are listed in `.env.example`. Set them in Netlify (site configuration >
   environment variables) and put `NOTIFY_SECRET` in the GitHub repo secrets too.

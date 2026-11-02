@@ -17,9 +17,14 @@ function authorized(request: Request) {
   return given.length === expected.length && timingSafeEqual(given, expected);
 }
 
+// Which commit is live. The notify workflow waits for its own commit before announcing.
+export function GET() {
+  return Response.json({ commit: process.env.BUILD_COMMIT });
+}
+
 /*
-  Announces new articles to confirmed subscribers. Called after each production deploy
-  (.github/workflows/notify-subscribers.yml) and safe to call any number of times: an
+  Announces new articles to confirmed subscribers. Called by .github/workflows/notify-subscribers.yml
+  once a push to main is live, and safe to call any number of times: an
   article whose broadcast already exists in Resend is skipped. Resend queues the actual
   sending, respects its rate limits and adds the unsubscribe link.
 */
