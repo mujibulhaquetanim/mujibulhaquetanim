@@ -1,0 +1,31 @@
+import Image from "next/image";
+import Link from "next/link";
+import type { Project } from "@/content/projects";
+
+export function ProjectRow({ project }: { project: Project }) {
+  return (
+    <Link
+      href={`/work/${project.slug}`}
+      className="group grid gap-4 border-b border-line py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
+    >
+      <div className="hidden overflow-hidden rounded-[4px] border border-line sm:block">
+        <Image
+          src={project.image}
+          alt=""
+          sizes="144px"
+          className={`aspect-[4/3] w-full object-cover ${
+            project.imagePosition === "top" ? "object-top" : "object-center"
+          }`}
+        />
+      </div>
+      <div className="min-w-0">
+        <h3 className="text-lg font-bold leading-snug decoration-2 underline-offset-[0.2em] group-hover:underline">
+          {project.title}
+        </h3>
+        <p className="text-[0.9375rem] text-ink-2">{project.kind}</p>
+        <p className="mt-2 max-w-[62ch]">{project.summary}</p>
+        <p className="mt-2 text-[0.875rem] text-ink-2">{project.stack.join(", ")}</p>
+      </div>
+    </Link>
+  );
+}

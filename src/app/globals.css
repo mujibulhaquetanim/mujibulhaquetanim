@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/*
+  Tokens. Light is a cool porcelain with green-black ink; cobalt is the only
+  interactive colour. Marigold is reserved for the hero trace, nowhere else.
+*/
+:root {
+  --paper: #edf0ee;
+  --paper-2: #e3e8e5;
+  --ink: #17201c;
+  --ink-2: #55615c;
+  --line: #cdd4d0;
+  --cobalt: #2443d6;
+  --marigold: #e9a825;
+  /* Marigold dark enough for small text on paper (4.8:1). */
+  --marigold-ink: #8a5a00;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #131c1b;
+    --paper-2: #1a2523;
+    --ink: #e4eae7;
+    --ink-2: #9aa7a2;
+    --line: #2a3533;
+    --cobalt: #8fa2ff;
+    --marigold: #f0bc4c;
+    --marigold-ink: #f0bc4c;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-cobalt: var(--cobalt);
+  --color-marigold: var(--marigold);
+  --color-marigold-ink: var(--marigold-ink);
+  --font-sans: var(--font-mona), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-martian), ui-monospace, monospace;
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  background: var(--paper);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  /* Mona Sans sets a narrow word space; open it slightly for running text. */
+  word-spacing: 0.06em;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings use the wide cut of the same family instead of a second typeface. */
+h1,
+h2,
+h3 {
+  font-variation-settings: "wdth" 116;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--cobalt) 22%, transparent);
+}
+
+@layer components {
+  /* Inline text links: underline that thickens on hover, never a colour-only cue. */
+  .link {
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    transition:
+      text-decoration-color 160ms ease,
+      text-decoration-thickness 160ms ease;
+  }
+  .link:hover {
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 2px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    transition:
+      background-color 160ms ease,
+      color 160ms ease,
+      box-shadow 160ms ease,
+      transform 120ms ease;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-solid {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn-solid:hover {
+    background: var(--cobalt);
+  }
+  .btn-quiet {
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .btn-quiet:hover {
+    box-shadow: inset 0 0 0 1px var(--ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
