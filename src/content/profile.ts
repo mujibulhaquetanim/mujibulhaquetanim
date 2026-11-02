@@ -106,3 +106,25 @@ export const toolbox = [
     items: ["OAuth", "JWT", "RBAC", "ABAC", "CASL", "Better Auth", "Passport"],
   },
 ];
+
+// Bento theme tiles. Same facts as above, in the short form the original tile grid used.
+export const stats = [
+  { to: 3, suffix: "+", label: "Years of experience" },
+  { to: 20, suffix: "+", label: "Projects shipped since 2023" },
+  { to: 45, suffix: "%", label: "Backend throughput gain" },
+  {
+    to: 60,
+    suffix: "+",
+    label: "Typing speed (WPM)",
+    href: "https://monkeytype.com/profile/mujibtanim",
+  },
+];
+
+export const milestones = [
+  { year: "2026", title: "MeshEver", detail: "Full-Stack AI Engineer, building Zasmate", current: true },
+  { year: "2026", title: "M.Sc. in CSE", detail: "IIUC, research on AI-written phishing detection" },
+  { year: "2025", title: "3Zero Digital", detail: "+45% backend throughput, agentic RAG on MCP" },
+  { year: "2023", title: "Freelance full-stack", detail: "B.Sc. in CSE, real-time client systems" },
+];
+
+export const coreStack = ["TypeScript", "NestJS", "Next.js", "PostgreSQL", "WebRTC", "AWS", "LangGraph", "Docker"];

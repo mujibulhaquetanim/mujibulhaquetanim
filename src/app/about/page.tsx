@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageIntro, Section } from "@/components/section";
-import { experience, focusAreas, principles, research } from "@/content/profile";
+import { experience, focusAreas, principles, research, toolbox } from "@/content/profile";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function AboutPage() {
           performance, and code the next person can change without fear.
         </p>
         <p className="mt-4">
-          I&apos;m based in {site.location} and work as a {site.role.toLowerCase()} at{" "}
+          I&apos;m based in {site.location} and work as a full-stack AI engineer at{" "}
           <a href={site.employer.url} className="link text-ink" target="_blank" rel="noopener noreferrer">
             {site.employer.name}
           </a>
@@ -86,6 +86,17 @@ export default function AboutPage() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      <Section id="toolbox" title="What I work with" intro="Grouped by the problems they solve.">
+        <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2">
+          {toolbox.map(({ group, items }) => (
+            <div key={group} className="reveal border-t border-line pt-4">
+              <dt className="font-bold">{group}</dt>
+              <dd className="mt-1 text-ink-2">{items.join(", ")}</dd>
+            </div>
+          ))}
+        </dl>
       </Section>
     </>
   );
