@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { AnimatedHeading } from "@/components/animated-heading";
 
 // Section name and a one-line purpose sit in a narrow left column; content takes the rest.
 export function Section({
@@ -18,9 +19,9 @@ export function Section({
       aria-labelledby={id ? `${id}-title` : undefined}
       className="mx-auto grid max-w-[1180px] scroll-mt-20 gap-x-8 gap-y-6 px-5 pt-20 sm:px-8 lg:grid-cols-12 lg:pt-28"
     >
-      <header className="lg:col-span-3">
+      <header className="reveal lg:col-span-3">
         <div className="lg:sticky lg:top-24">
-          <h2 id={id ? `${id}-title` : undefined} className="text-[1.3125rem] font-bold leading-tight tracking-tight">
+          <h2 id={id ? `${id}-title` : undefined} className="section-title text-lg font-bold leading-tight tracking-tight">
             {title}
           </h2>
           {intro && <p className="mt-2 max-w-[34ch] text-[0.9375rem] text-ink-2">{intro}</p>}
@@ -34,9 +35,10 @@ export function Section({
 export function PageIntro({ title, children }: { title: string; children?: ReactNode }) {
   return (
     <div className="mx-auto max-w-[1180px] px-5 pt-16 sm:px-8 lg:pt-24">
-      <h1 className="max-w-[18ch] text-[clamp(2.25rem,5.5vw,4rem)] font-extrabold leading-[1.02] tracking-[-0.02em]">
-        {title}
-      </h1>
+      <AnimatedHeading
+        text={title}
+        className="max-w-[22ch] text-[clamp(1.9rem,4.2vw,3.25rem)] font-extrabold leading-[1.08] tracking-[-0.04em]"
+      />
       {children && <div className="mt-5 max-w-[60ch] text-lg text-ink-2">{children}</div>}
     </div>
   );

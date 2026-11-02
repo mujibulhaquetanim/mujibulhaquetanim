@@ -1,21 +1,95 @@
-# 💫 About Me:
-👋 Salam! As a computer science graduate, I am advancing my expertise with an MSc in Computer Science and Engineering. My passion lies in backend technologies, system architecture, and enhancing code efficiency. Consistency is my mantra. Allow me to tell you more about my journey:
+# Mujibul Haque Tanim
 
-🔭 I am involved in full-stack development projects.<br>🌱 I am expanding my knowledge of AI, System Design, and Amazon Web Services.<br>💬 Ask me about Recent Projects, Nodejs, React, DBMS, New Tech, etc. <br> 👋🏼 Open for Project collaboration.
+Full-stack AI engineer in Chattogram, Bangladesh. I build multi-tenant backends, real-time
+systems and AI agents, mostly in TypeScript.
 
-Connect me on [LinkedIn](https://www.linkedin.com/in/mujibulhaquetanim/) or [Email](mailto:info@mujibulhaquetanim.dev)
+Right now I'm at [MeshEver](https://meshever.com) building [Zasmate](https://zasmate.com), an AI
+agent that answers customer messages for businesses on WhatsApp, Messenger, Instagram, web chat,
+email, Telegram and SMS. It replies in Bangla, Banglish or English from each business's own
+catalogue, and hands refunds and other sensitive requests to a person.
 
-# 💻 Tech Stack:
+**Portfolio:** [mujibulhaquetanim.dev](https://www.mujibulhaquetanim.dev)<br>
+**Email:** [info@mujibulhaquetanim.dev](mailto:info@mujibulhaquetanim.dev)<br>
+**LinkedIn:** [in/mujibulhaquetanim](https://www.linkedin.com/in/mujibulhaquetanim/)
 
-### Primary Stack:
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=plastic&logo=react&logoColor=%2361DAFB) ![Next JS](https://img.shields.io/badge/Next-black?style=plastic&logo=next.js&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white) <a href="https://ui.shadcn.com/" target="_blank" rel="noopener noreferrer"><img src="https://avatars.githubusercontent.com/u/139895814?s=48&v=4" width="32" height="20" alt="shadCn" valign="middle" /></a> ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=plastic&logo=typescript&logoColor=white) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=plastic&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=plastic&logo=express&logoColor=%2361DAFB) <a href="https://docs.nestjs.com/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nestjs-colored.svg" width="32" height="20" alt="NestJS" valign="middle" /></a> <a href="https://www.docker.com/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="32" height="25" valign="middle" /></a> <a href="https://www.langchain.com/" target="_blank" rel="noopener noreferrer"><img src="https://avatars.githubusercontent.com/u/126733545?s=200&v=4" width="32" height="20" alt="Langchain" valign="middle" /></a> ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=plastic&logo=mongodb&logoColor=white) ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=plastic&logo=redis&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=plastic&logo=postgresql&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=plastic&logo=amazon-aws&logoColor=white)
+## What I work on
 
-### Tech Experience:
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=plastic&logo=javascript&logoColor=%23F7DF1E) <a href="https://reactnative.dev/" target="_blank" rel="noopener noreferrer"><img src="https://reactnative.dev/img/header_logo.svg" alt="reactnative" width="20" height="20" valign="middle" /></a> ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=plastic&logo=go&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=plastic&logo=python&logoColor=ffdd54) ![C](https://img.shields.io/badge/c-%2300599C.svg?style=plastic&logo=c&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=plastic&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=plastic&logo=css3&logoColor=white) ![GraphQL](https://img.shields.io/badge/-GraphQL-E10098?style=plastic&logo=graphql&logoColor=white) <a href="https://trpc.io/" target="_blank" rel="noopener noreferrer"><img src="https://avatars.githubusercontent.com/u/78011399?s=48&v=4" width="32" height="20" alt="trpc" valign="middle" /></a> <a href="https://grpc.io/" target="_blank" rel="noopener noreferrer"><img src="https://avatars.githubusercontent.com/u/7802525?s=200&v=4" width="32" height="20" alt="GRPC" valign="middle" /></a> ![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=plastic&logo=gnu-bash&logoColor=white) <a href="https://www.linux.org/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="30" height="30" valign="middle" /></a> ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=plastic&logo=socket.io&badgeColor=010101) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=plastic&logo=fastapi) ![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=plastic&logo=bun&logoColor=white) ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=plastic&logo=sqlite&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-%2300000f.svg?style=plastic&logo=mysql&logoColor=white) <a href="https://appwrite.io" target="_blank" rel="noopener noreferrer"><img src="https://www.vectorlogo.zone/logos/appwriteio/appwriteio-icon.svg" alt="appwrite" width="25" height="25" valign="middle" /></a> <a href="https://grafana.com" target="_blank" rel="noopener noreferrer"><img src="https://www.vectorlogo.zone/logos/grafana/grafana-icon.svg" alt="grafana" width="20" height="20" valign="middle" /></a> ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=plastic&logo=supabase&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=plastic&logo=firebase) ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=plastic&logo=vite&logoColor=white) ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=plastic&logo=render&logoColor=white) <a href="https://kubernetes.io" target="_blank" rel="noopener noreferrer"><img src="https://www.vectorlogo.zone/logos/kubernetes/kubernetes-icon.svg" alt="kubernetes" width="25" height="25" valign="middle" /></a> ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=plastic&logo=nginx&logoColor=white) ![RabbitMQ](https://img.shields.io/badge/rabbitmq-FF6600?style=plastic&logo=rabbitmq&logoColor=white) ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=plastic&logo=postman&logoColor=white) ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=plastic&logo=swagger&logoColor=white) ![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style=plastic&logo=chart.js&logoColor=white) <a href="https://www.elastic.co" target="_blank" rel="noopener noreferrer"><img src="https://www.vectorlogo.zone/logos/elastic/elastic-icon.svg" alt="elasticsearch" width="20" height="20" valign="middle" /></a> ![Strapi](https://img.shields.io/badge/strapi-%232E7EEA.svg?style=plastic&logo=strapi&logoColor=white) ![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=plastic&logo=Canva&logoColor=white) ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=plastic&logo=figma&logoColor=white) ![Gimp](https://img.shields.io/badge/Gimp-657D8B?style=plastic&logo=gimp&logoColor=FFFFFF) ![Inkscape](https://img.shields.io/badge/Inkscape-e0e0e0?style=plastic&logo=inkscape&logoColor=080A13) ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=plastic&logo=numpy&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=plastic&logo=scikit-learn&logoColor=white) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=plastic&logo=pandas&logoColor=white) ![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=plastic&logo=Keras&logoColor=white) ![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=plastic&logo=Matplotlib&logoColor=black) ![Scipy](https://img.shields.io/badge/SciPy-%230C55A5.svg?style=plastic&logo=scipy&logoColor=%white) ![APACHEKAFKA](https://img.shields.io/badge/apachekafka-231F20.svg?style=plastic&logo=apachekafka&logoColor=white&color=%23231F20) ![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=plastic&logo=notion&logoColor=white) <a href="https://www.arduino.cc/" target="_blank" rel="noopener noreferrer"><img src="https://cdn.worldvectorlogo.com/logos/arduino-1.svg" alt="arduino" width="20" height="20" valign="middle" /></a>
+- **Backend architecture.** NestJS and Node.js services, PostgreSQL with row-level security for
+  tenant isolation, and queues with RabbitMQ and Kafka.
+- **Real-time systems.** WebRTC, Socket.io and Redis for messaging, calls and live video.
+- **AI in production.** Agents and retrieval-augmented generation with LangGraph, MCP servers and
+  the OpenAI SDK, with human handoff and audit logs for the decisions a model shouldn't make alone.
+- **Delivery.** Docker, AWS and GitHub Actions, shipping small changes often.
 
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=mujibulhaquetanim&theme=dark&hide_border=false&include_all_commits=true&count_private=true&layout=compact)
-![](http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=mujibulhaquetanim&theme=transparent)
-<div align="center">
-  <img src="https://streak-stats.demolab.com?user=mujibulhaquetanim&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5&order=3" height="220" alt="streak graph"  />
-</div>
+At 3Zero Digital I improved backend throughput by 45% and shipped an agentic RAG system on MCP
+servers.
+
+## Selected work
+
+| Project | What it is | Built with |
+| --- | --- | --- |
+| [Zasmate](https://zasmate.com) | Multi-channel AI customer messaging SaaS | Next.js, AI agents, RAG, Meta Messaging APIs |
+| [Shopmart](https://shopmart.mujibulhaquetanim.dev) | Multi-vendor store with role-based admin and per-tenant data isolation | NestJS, Next.js, PostgreSQL (RLS), CASL |
+| [AatBaazar](https://aat-baazar.mujibulhaquetanim.dev) | Marketplace with search, accounts and Stripe checkout | Next.js, PostgreSQL, Stripe |
+| [PharmaCMS](https://github.com/mujibulhaquetanim/Backend-Functionalities/tree/main/Payment%20Gateways/Stripe/One-time%20Payment) | Pharmacy inventory, prescriptions and payments | Next.js, Express, MongoDB, Stripe |
+
+More projects and write-ups are on [the portfolio](https://www.mujibulhaquetanim.dev). Smaller
+experiments live in [Backend-Functionalities](https://github.com/mujibulhaquetanim/Backend-Functionalities)
+and [Frontend-Functionalities](https://github.com/mujibulhaquetanim/Frontend-Functionalities).
+
+## Stack
+
+**Every day:** TypeScript, Node.js, NestJS, Next.js, React, PostgreSQL, Redis, Docker, AWS<br>
+**Real-time and messaging:** WebRTC, Socket.io, RabbitMQ, Kafka<br>
+**AI:** LangGraph, LangChain, MCP, OpenAI SDK, n8n<br>
+**Also shipped with:** Go, Python, FastAPI, GraphQL, gRPC, tRPC, MongoDB, Neo4j, Drizzle, NGINX,
+Kubernetes, Grafana, Tailwind CSS
+
+## Research
+
+M.Sc. in Computer Science and Engineering, International Islamic University Chittagong (2026).
+B.Sc. from Port City International University (2023).
+
+- [Leakage-aware multi-class detection of AI-generated phishing emails](https://github.com/mujibulhaquetanim/Multi-Class-Detection-of-AI-Generated-Phishing)
+  using stylometric features and stacked ensembles
+- E-commerce demand forecasting compared across ML models, with explainable AI
+- Gender prediction of Bengali names with ensembles and BERT
+
+## Consistency
+
+I've pushed code every day since 1 January 2024.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://streak-stats.demolab.com?user=mujibulhaquetanim&theme=dark&hide_border=true&border_radius=6" />
+  <img src="https://streak-stats.demolab.com?user=mujibulhaquetanim&theme=default&hide_border=true&border_radius=6" height="180" alt="GitHub contribution streak for mujibulhaquetanim" />
+</picture>
+
+## Open to
+
+Full-stack and backend roles, remote or on-site, and project collaborations. Email is the fastest
+way to reach me.
+
+---
+
+<details>
+<summary><strong>About this repository</strong></summary>
+
+Besides this profile, the repo holds the source of
+[mujibulhaquetanim.dev](https://www.mujibulhaquetanim.dev):
+
+- Next.js 16 (App Router, Cache Components, Partial Prefetching, React Compiler)
+- Tailwind CSS 4, `motion`, JetBrains Mono
+- Three switchable themes: **paper** (calm), **terminal** (green phosphor, typed headings) and
+  **kinetic** (scrambled headings, scroll reveals)
+- An interactive hero that traces one customer message through Zasmate
+- GitHub activity and streak fetched on the server and cached for a day
+
+```bash
+pnpm install
+pnpm dev      # http://localhost:3000
+pnpm build    # production build and type check
+```
+
+All copy and project data live in `src/content/`. Design rules are in `CLAUDE.md`.
+
+</details>

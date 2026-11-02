@@ -6,14 +6,14 @@ export function ProjectRow({ project }: { project: Project }) {
   return (
     <Link
       href={`/work/${project.slug}`}
-      className="group grid gap-4 border-b border-line py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
+      className="reveal group grid gap-4 border-b border-line py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
     >
       <div className="hidden overflow-hidden rounded-[4px] border border-line sm:block">
         <Image
           src={project.image}
           alt=""
           sizes="144px"
-          className={`aspect-[4/3] w-full object-cover ${
+          className={`thumb aspect-[4/3] w-full bg-white object-cover ${
             project.imagePosition === "top" ? "object-top" : "object-center"
           }`}
         />

@@ -147,7 +147,7 @@ export function MessageTrace() {
                 <span
                   aria-hidden
                   className={`absolute left-[7px] top-5 bottom-0 w-px transition-colors duration-300 ${
-                    state === "done" ? "bg-cobalt" : "bg-line"
+                    state === "done" ? "bg-accent" : "bg-line"
                   }`}
                 />
               )}
@@ -157,7 +157,7 @@ export function MessageTrace() {
                   state === "done"
                     ? isHandoff
                       ? "border-marigold bg-marigold"
-                      : "border-cobalt bg-cobalt"
+                      : "border-accent bg-accent"
                     : state === "active"
                       ? "border-marigold bg-paper"
                       : "border-line bg-paper"
@@ -173,7 +173,7 @@ export function MessageTrace() {
                   <span className="sr-only">{state === "done" ? ", done" : state === "active" ? ", in progress" : ""}</span>
                 </p>
                 <p
-                  className={`mt-0.5 truncate font-mono text-[0.75rem] [font-variation-settings:'wdth'_87.5] ${
+                  className={`mt-0.5 truncate font-mono text-[0.75rem] ${
                     isHandoff && state !== "pending" ? "text-marigold-ink" : "text-ink-2"
                   }`}
                 >
@@ -201,7 +201,7 @@ export function MessageTrace() {
                   Sent to a person in the team inbox
                 </p>
               )}
-              <p className="rounded-2xl rounded-br-sm bg-cobalt px-3.5 py-2.5 text-[0.9375rem] leading-snug text-paper">
+              <p className="rounded-2xl rounded-br-sm bg-accent px-3.5 py-2.5 text-[0.9375rem] leading-snug text-paper">
                 {scenario.outcome.text}
               </p>
               <p className="mt-1 pr-1 text-right text-xs text-ink-2">{scenario.outcome.gloss}</p>
