@@ -8,7 +8,7 @@ agent that answers customer messages for businesses on WhatsApp, Messenger, Inst
 email, Telegram and SMS. It replies in Bangla, Banglish or English from each business's own
 catalogue, and hands refunds and other sensitive requests to a person.
 
-**Portfolio:** [mujibulhaquetanim.dev](https://www.mujibulhaquetanim.dev)<br>
+**Portfolio:** [mujibulhaquetanim.dev](https://mujibulhaquetanim.dev)<br>
 **Email:** [info@mujibulhaquetanim.dev](mailto:info@mujibulhaquetanim.dev)<br>
 **LinkedIn:** [in/mujibulhaquetanim](https://www.linkedin.com/in/mujibulhaquetanim/)
 
@@ -33,7 +33,7 @@ servers.
 | [AatBaazar](https://aat-baazar.mujibulhaquetanim.dev) | Marketplace with search, accounts and Stripe checkout | Next.js, PostgreSQL, Stripe |
 | [PharmaCMS](https://github.com/mujibulhaquetanim/Backend-Functionalities/tree/main/Payment%20Gateways/Stripe/One-time%20Payment) | Pharmacy inventory, prescriptions and payments | Next.js, Express, MongoDB, Stripe |
 
-More projects and write-ups are on [the portfolio](https://www.mujibulhaquetanim.dev). Smaller
+More projects and write-ups are on [the portfolio](https://mujibulhaquetanim.dev). Smaller
 experiments live in [Backend-Functionalities](https://github.com/mujibulhaquetanim/Backend-Functionalities)
 and [Frontend-Functionalities](https://github.com/mujibulhaquetanim/Frontend-Functionalities).
 
@@ -75,7 +75,7 @@ way to reach me.
 <summary><strong>About this repository</strong></summary>
 
 Besides this profile, the repo holds the source of
-[mujibulhaquetanim.dev](https://www.mujibulhaquetanim.dev). It is a rebuild of my earlier
+[mujibulhaquetanim.dev](https://mujibulhaquetanim.dev). It is a rebuild of my earlier
 React and Vite portfolio,
 [mujibv.1](https://github.com/mujibulhaquetanim/Frontend-Functionalities/tree/main/Portfolios/mujibv.1),
 moved to Next.js with server rendering, real SEO metadata, live GitHub data and a theme system.

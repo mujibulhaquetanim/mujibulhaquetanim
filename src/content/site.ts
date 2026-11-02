@@ -4,7 +4,7 @@ export const site = {
   name: "Mujibul Haque Tanim",
   shortName: "Tanim",
   role: "Full-Stack AI Engineer",
-  url: "https://www.mujibulhaquetanim.dev",
+  url: "https://mujibulhaquetanim.dev",
   email: "info@mujibulhaquetanim.dev",
   location: "Chattogram, Bangladesh",
   timeZone: "Asia/Dhaka",
