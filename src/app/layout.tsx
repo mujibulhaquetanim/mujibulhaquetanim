@@ -1,15 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CursorGlow } from "@/components/cursor-glow";
 import { site, socials } from "@/content/site";
-import { themeBootScript } from "@/lib/theme";
+import { themeBootScript } from "@/lib/theme-config";
 import "./globals.css";
 
 const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
+});
+
+// The Bento theme keeps the original site's typefaces. Not preloaded: browsers only
+// fetch them when a bento-themed page actually uses them.
+const plex = IBM_Plex_Sans({
+  variable: "--font-plex",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  preload: false,
+});
+
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  // Optical sizing tightens the big headings, as on the original site.
+  axes: ["opsz"],
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -30,10 +47,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#edf0ee" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a110d" },
-  ],
+  // Matches the default (Bento) page colour.
+  themeColor: "#334155",
 };
 
 const personJsonLd = {
@@ -59,7 +74,11 @@ const personJsonLd = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // data-theme is set by the boot script before React hydrates, hence suppressHydrationWarning.
-    <html lang="en" className={`${jetbrains.variable} antialiased`} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${jetbrains.variable} ${plex.variable} ${bricolage.variable} antialiased`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>

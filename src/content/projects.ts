@@ -193,6 +193,9 @@ export const codeSamples = [
   },
 ];
 
+// Bento home showcase tabs: AI SaaS through e-commerce to business systems.
+export const showcase = ["zasmate", "shopmart", "aatbaazar", "pharmacms"];
+
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
 }

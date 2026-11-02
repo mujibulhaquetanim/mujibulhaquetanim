@@ -2,7 +2,7 @@
 
 import { THEMES, setTheme, useTheme } from "@/lib/theme";
 
-// One button that cycles Paper → Terminal → Kinetic, labelled like a shell setting.
+// One button that cycles Bento → Paper → Terminal → Kinetic, labelled like a shell setting.
 export function ThemeSwitcher() {
   const theme = useTheme();
   const index = Math.max(
@@ -20,7 +20,7 @@ export function ThemeSwitcher() {
       title={`Switch to ${next.label}: ${next.note}`}
       className="ml-1 flex items-center gap-2 rounded-md border border-line px-2 py-1 text-xs text-ink-2 transition-colors hover:border-ink hover:text-ink sm:ml-2"
     >
-      {/* Three dots preview the palettes; the current one is filled. */}
+      {/* One dot per theme; the current one is filled. */}
       <span aria-hidden className="flex gap-1">
         {THEMES.map((t) => (
           <span

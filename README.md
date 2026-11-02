@@ -79,8 +79,8 @@ Besides this profile, the repo holds the source of
 
 - Next.js 16 (App Router, Cache Components, Partial Prefetching, React Compiler)
 - Tailwind CSS 4, `motion`, JetBrains Mono
-- Three switchable themes: **paper** (calm), **terminal** (green phosphor, typed headings) and
-  **kinetic** (scrambled headings, scroll reveals)
+- Four switchable themes: **bento** (the default, a one-screen tile grid), **paper** (calm),
+  **terminal** (green phosphor, typed headings) and **kinetic** (scrambled headings, scroll reveals)
 - An interactive hero that traces one customer message through Zasmate
 - GitHub activity and streak fetched on the server and cached for a day
 

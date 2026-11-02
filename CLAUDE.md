@@ -29,21 +29,30 @@ repo). Never overwrite it with project docs; put those here.
 
 The look is deliberately not a template. Keep it that way:
 
-- Three themes, switched from the header (`ThemeSwitcher`) and stored in `localStorage`:
-  - **paper**: light porcelain, accent blue, no ambient motion. The calm default.
+- Four themes, switched from the header (`ThemeSwitcher`) and stored in `localStorage`:
+  - **paper**: light porcelain, accent blue, no ambient motion. The calm one.
   - **terminal**: green phosphor, `>` prompts on section titles, typed headings with a
     block cursor, scanline overlay, terminal-selection link hovers.
   - **kinetic**: dark violet with lime and pink, scrambled headings, colour sweep on h1,
     scroll reveals (`.reveal`, CSS scroll timelines), drifting backdrop, cursor glow.
-  `themeBootScript` in `src/lib/theme.ts` sets `data-theme` before paint (no flash); first
-  visits get terminal on a dark system, paper otherwise.
+  - **bento**: the original Vite site's slate tile grid and the default theme, because it
+    shows nearly everything on one screen. It swaps the home page for a one-screen bento
+    layout (`src/components/bento/`) and uses the original fonts (IBM Plex Sans, Bricolage
+    Grotesque) and tile styles. Other pages keep their structure
+    with bento colours. `LayoutSwitch` server-renders both home layouts; CSS shows the right
+    one before paint and the hidden one unmounts after hydration.
+  `themeBootScript` in `src/lib/theme-config.ts` sets `data-theme` before paint (no flash);
+  first visits get `DEFAULT_THEME`, the first entry in `THEMES` (bento).
 - Every theme defines the same tokens in `globals.css` (`paper`, `ink`, `ink-2`, `line`,
   `accent`, `marigold`, `marigold-ink`). Components use only tokens, never raw colours, so
   a new theme is just a new token block plus optional `[data-theme=…]` effects.
 - Theme-specific effects live in CSS under `[data-theme=…]` selectors or in client
   components that read `useTheme()`. Paper stays effect-free.
 - Reduced motion turns off all theme animation; animated headings render static text.
-- One typeface: JetBrains Mono for everything. Big headings use tight negative tracking.
+- JetBrains Mono for everything except the bento theme. Big headings use tight negative tracking.
+- Base element styles live in `@layer base` and component classes in `@layer components`.
+  Unlayered CSS beats Tailwind utilities regardless of specificity, so only `[data-theme=…]`
+  overrides should sit outside a layer.
 - Content is left-aligned. Sections put the title in a narrow left column (`<Section>`).
 - Avoid ALL-CAPS eyebrow labels, `A · B` meta strings, arrows appended to link text and
   glass cards. Decoration belongs to a theme, not to the base styles.

@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatedHeading } from "@/components/animated-heading";
 import { MessageTrace } from "@/components/message-trace";
+import { LayoutSwitch } from "@/components/bento/layout-switch";
+import { BentoHome } from "@/components/bento/bento-home";
 import { Section } from "@/components/section";
 import { GithubActivity } from "@/components/github-activity";
 import { ProjectRow } from "@/components/project-row";
@@ -14,6 +16,10 @@ const featured = projects.find((p) => p.featured)!;
 const selected = projects.filter((p) => !p.featured).slice(0, 4);
 
 export default function HomePage() {
+  return <LayoutSwitch bento={<BentoHome />} standard={<StandardHome />} />;
+}
+
+function StandardHome() {
   return (
     <>
       <div className="mx-auto grid max-w-[1180px] gap-12 px-5 pt-14 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:pt-24">

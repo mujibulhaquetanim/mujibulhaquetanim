@@ -1,22 +1,9 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { DEFAULT_THEME, THEME_STORAGE_KEY, type ThemeId } from "@/lib/theme-config";
 
-export const THEMES = [
-  { id: "paper", label: "Paper", note: "Light and calm" },
-  { id: "terminal", label: "Terminal", note: "Green phosphor" },
-  { id: "kinetic", label: "Kinetic", note: "Lots of motion" },
-] as const;
-
-export type ThemeId = (typeof THEMES)[number]["id"];
-
-export const THEME_STORAGE_KEY = "theme";
-
-/*
-  Runs inline in <head> before first paint so the saved theme never flashes.
-  First visit: dark system preference gets Terminal, otherwise Paper.
-*/
-export const themeBootScript = `(function(){try{var t=localStorage.getItem("${THEME_STORAGE_KEY}");if(t!=="paper"&&t!=="terminal"&&t!=="kinetic"){t=matchMedia("(prefers-color-scheme: dark)").matches?"terminal":"paper"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="paper"}})()`;
+export { THEMES, type ThemeId } from "@/lib/theme-config";
 
 function subscribe(onChange: () => void) {
   const observer = new MutationObserver(onChange);
@@ -24,7 +11,7 @@ function subscribe(onChange: () => void) {
   return () => observer.disconnect();
 }
 
-const getSnapshot = () => (document.documentElement.dataset.theme as ThemeId) ?? "paper";
+const getSnapshot = () => (document.documentElement.dataset.theme as ThemeId) ?? DEFAULT_THEME;
 // Unknown on the server; client components render the theme-neutral version first.
 const getServerSnapshot = () => null;
 
