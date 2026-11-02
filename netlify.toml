@@ -1,0 +1,8 @@
+# Netlify's image CDN keeps its own allowlist of remote images and does not pick up the
+# remotePatterns in next.config.ts that carry a query string. These match exactly the
+# profile photo (site.photo) and its GitHub fallback. Build settings stay in the Netlify UI.
+[images]
+  remote_images = [
+    "https://unavatar\\.io/linkedin/mujibulhaquetanim.*",
+    "https://avatars\\.githubusercontent\\.com/u/70325279.*",
+  ]
