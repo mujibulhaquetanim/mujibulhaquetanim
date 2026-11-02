@@ -23,7 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
-      SITE: https://mujibulhaquetanim.dev
+      # Netlify's own domain: the public one sits behind Cloudflare, which challenges
+      # requests from GitHub's runners, so they never saw the site's JSON.
+      SITE: https://mujibulhaquetanim.netlify.app
       NOTIFY_SECRET: ${{ secrets.NOTIFY_SECRET }}
       WANT: ${{ github.sha }}
       EVENT: ${{ github.event_name }}
