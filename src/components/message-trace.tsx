@@ -56,7 +56,8 @@ const SCENARIOS: Record<"question" | "refund", Scenario> = {
   },
 };
 
-const STEP_MS = 720;
+// Slow enough to read each stage before the next one lights up.
+const STEP_MS = 1000;
 
 export function MessageTrace() {
   const reduceMotion = useHydratedReducedMotion();

@@ -107,5 +107,5 @@ export async function sendMessage(_: FormState, form: FormData): Promise<FormSta
   });
   if (error) return { status: "error", message: `The message couldn't be sent. Please email me at ${site.email}.` };
 
-  return { status: "ok", message: "Thanks, your message is on its way. I usually reply within a couple of days." };
+  return { status: "ok", message: "Thanks, your message is on its way." };
 }

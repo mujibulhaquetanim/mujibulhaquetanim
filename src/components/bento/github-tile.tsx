@@ -2,7 +2,9 @@ import { LuArrowUpRight } from "react-icons/lu";
 import { getActivity } from "@/lib/github";
 import { site } from "@/content/site";
 
-const LEVEL_COLORS = ["#1e293b", "#0e4429", "#006d32", "#26a641", "#39d353"];
+// Contribution levels 0-4; colours and cell styles are .gh-cell in globals.css.
+const LEVELS = [0, 1, 2, 3, 4];
+const level = (n: number) => Math.min(Math.max(n, 0), 4);
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
   weekday: "short",
@@ -42,8 +44,8 @@ export async function GithubTile() {
         <div className="flex shrink-0 items-center gap-3">
           <div className="hidden items-center gap-1 text-[11px] text-slate-400 sm:flex" aria-hidden>
             <span>Less</span>
-            {LEVEL_COLORS.map((c) => (
-              <span key={c} className="size-[var(--cell)] rounded-[3px] border border-white/5" style={{ background: c }} />
+            {LEVELS.map((l) => (
+              <span key={l} className="gh-cell" data-l={l} />
             ))}
             <span>More</span>
           </div>
@@ -77,12 +79,7 @@ export async function GithubTile() {
                 style={{ animationDelay: `${i * 12}ms` }}
               >
                 {week.map((day) => (
-                  <span
-                    key={day.date}
-                    title={`${plural(day.count)} on ${fmt(day.date)}`}
-                    className="size-[var(--cell)] rounded-[3px] border border-white/5 transition-transform duration-150 hover:scale-[1.35] hover:border-white/60"
-                    style={{ background: LEVEL_COLORS[Math.min(Math.max(day.level, 0), 4)] }}
-                  />
+                  <span key={day.date} title={`${plural(day.count)} on ${fmt(day.date)}`} className="gh-cell" data-l={level(day.level)} />
                 ))}
               </div>
             ))}

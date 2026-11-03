@@ -5,7 +5,7 @@ import data from "@/content/recommendations.json";
   which commits recommendations.json. `enabled` shows or hides the whole page and its
   nav link. Only add real recommendations, quoted as written.
 */
-export type Recommendation = {
+type Recommendation = {
   name: string;
   role: string;
   relationship: string;

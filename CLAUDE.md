@@ -32,9 +32,18 @@ repo). Never overwrite it with project docs; put those here.
 - `src/components/profile-photo.tsx`: the LinkedIn photo (`site.photo`, via unavatar.io with
   the GitHub avatar as fallback), allowed by exact `images.remotePatterns` in `next.config.ts`.
 - `src/lib/github.ts`: contribution calendar and streak, fetched server-side with `"use cache"`.
-  Success is cached for a day, failure for minutes. It must never throw: an error inside a
-  cached function fails the build, and the community API it uses does time out.
-- `next.config.ts` redirects old Vite URLs (`/projects`, `/blogs`, `/tech-stack`, ...).
+  It asks for the full history and the last year at once and falls back to the last year
+  (then the streak is left out). Full success is cached for a day, last-year-only for hours,
+  failure for minutes; failures log a `[github]` line with the reason. It must never throw:
+  an error inside a cached function fails the build, and the community API it uses does
+  time out.
+- `src/lib/network.ts` raises Node's 250 ms per-address connect limit: from Bangladesh, with
+  no IPv6 route, connections to that API (in Germany) failed at random. Loaded by
+  `src/instrumentation.ts` (running server) and by `github.ts` (build workers skip
+  instrumentation).
+- `next.config.ts` redirects old Vite URLs (`/projects`, `/blogs`, `/tech-stack`, ...). It also
+  turns off Turbopack's persistent dev and build caches: they served a stale `globals.css`,
+  so CSS changes silently went missing (Netlify keeps `.next/cache` between deploys).
 
 ## Email, subscribers and the CMS
 
@@ -72,13 +81,20 @@ The look is deliberately not a template. Keep it that way:
   - **kinetic**: the award-site theme. Dark violet with lime and pink, Syne display type,
     word-rise headings, ring cursor in difference blend and magnetic buttons (`KineticFx`),
     scroll-velocity marquee (`VelocityMarquee`), film grain, scroll progress line, scroll
-    reveals (`.reveal`), drifting backdrop.
+    reveals (`.reveal`), drifting backdrop. The home hero plays one entrance (`.hero-in`
+    with a `--delay`). Reveals are time-based and run through the Web Animations API in
+    `KineticFx`, never by setting attributes on server markup (that breaks hydration).
+    Kinetic motion is meant to be slow enough to follow: entrances run about 1.1–1.8 s.
   - **bento**: the original Vite site's slate tile grid and the default theme, because it
     shows nearly everything on one screen. It swaps the home page for a one-screen bento
     layout (`src/components/bento/`) and uses the original fonts (IBM Plex Sans, Bricolage
     Grotesque) and tile styles. Other pages keep their structure
     with bento colours. `LayoutSwitch` server-renders both home layouts; CSS shows the right
-    one before paint and the hidden one unmounts after hydration.
+    one before paint and the hidden one unmounts after hydration. So crawlers reading raw
+    HTML see one h1 and no repeated headings, headings in the standard layout use
+    `LayoutHeading` (or `AnimatedHeading inLayout`): a `div[data-heading]` until the theme
+    is known, styled like the real tag in `globals.css`. The bento grid has a minimum, not
+    a fixed, height so short windows scroll instead of clipping the bottom row.
   `themeBootScript` in `src/lib/theme-config.ts` sets `data-theme` before paint (no flash);
   first visits get `DEFAULT_THEME`, the first entry in `THEMES` (bento).
 - Every theme defines the same tokens in `globals.css` (`paper`, `ink`, `ink-2`, `line`,

@@ -31,6 +31,13 @@ function Cell({ delay, className, children }: { delay: number; className: string
     row 1: intro | featured project
     row 2: GitHub activity | numbers | career path
     row 3: tech stack | contact
+  A minimum height, not a fixed one, and rows no shorter than their content: on a short
+  window the grid grows and the page scrolls, instead of clipping the bottom row.
+  Only row 2 is flexible. Several fr rows would be scaled from each other's content
+  whenever the grid outgrows the screen, making it taller than needed; so row 1 takes
+  its content height and row 3 grows to 10% of the screen, close to its share in the
+  original 3fr/2fr/0.8fr split. It grows before the grid checks the fit, so a bigger cap
+  pushes a screen whose content just fits (1440x900) into scrolling.
 */
 export function BentoHome() {
   return (
@@ -38,7 +45,7 @@ export function BentoHome() {
       data-bento-home
       className="w-full overflow-x-hidden bg-[radial-gradient(rgba(255,255,255,0.07)_1px,transparent_1px)] [background-size:22px_22px]"
     >
-      <SpotlightGrid className="mx-auto grid h-auto max-w-[90rem] auto-rows-auto grid-cols-1 gap-2 px-3 py-2 sm:gap-3 sm:px-4 md:grid-cols-2 lg:h-[calc(100dvh-3.5rem-1px)] lg:grid-cols-12 lg:grid-rows-[minmax(min-content,3fr)_minmax(13.5rem,2fr)_minmax(4.25rem,0.8fr)] lg:gap-2 lg:px-4 xl:gap-4">
+      <SpotlightGrid className="mx-auto grid h-auto max-w-[90rem] auto-rows-auto grid-cols-1 gap-2 px-3 py-2 sm:gap-3 sm:px-4 md:grid-cols-2 lg:min-h-[calc(100dvh-3.5rem-1px)] lg:grid-cols-12 lg:grid-rows-[auto_minmax(min-content,1fr)_minmax(min-content,10dvh)] lg:gap-2 lg:px-4 xl:gap-4">
         <Cell delay={0} className="col-span-full md:col-span-2 lg:col-span-6">
           <div className="tile flex h-full flex-col gap-3 p-4 sm:gap-4 sm:p-5 lg:gap-2 lg:p-4 xl:gap-4 xl:p-6 2xl:gap-6 2xl:p-8 short:gap-2 short:p-4">
             {/* Status and greeting on the left; a large tilted portrait on the right. */}

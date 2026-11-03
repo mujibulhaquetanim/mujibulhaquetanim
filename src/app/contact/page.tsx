@@ -14,10 +14,7 @@ export default function ContactPage() {
   return (
     <>
       <PageIntro title="Get in touch">
-        <p>
-          A role, a project, or a question about something I wrote. The message comes straight to my
-          inbox, and I reply from {site.email}.
-        </p>
+        <p>A role, a project, or a question about something I wrote.</p>
       </PageIntro>
       <div className="mx-auto max-w-[1180px] px-5 pt-12 sm:px-8">
         <ContactForm />

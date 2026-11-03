@@ -129,7 +129,9 @@ export function FeaturedTile() {
             <motion.div key={project.slug} {...fade}>
               <Image
                 src={project.image}
-                alt=""
+                alt={project.imageAlt}
+                // The largest thing on the default home screen (its LCP), so it isn't lazy.
+                loading="eager"
                 sizes="(min-width: 1024px) 420px, 100vw"
                 className="block aspect-[1280/760] w-full bg-white object-cover object-left-top"
               />
@@ -147,7 +149,7 @@ export function FeaturedTile() {
             <Image
               key={p.slug}
               src={p.image}
-              alt=""
+              alt={p.imageAlt}
               sizes="28px"
               className="size-6 rounded-full border-2 border-slate-600 bg-white object-cover object-top"
             />

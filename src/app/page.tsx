@@ -6,15 +6,16 @@ import { AnimatedHeading } from "@/components/animated-heading";
 import { MessageTrace } from "@/components/message-trace";
 import { VelocityMarquee } from "@/components/velocity-marquee";
 import { ProfilePhoto } from "@/components/profile-photo";
-import { LayoutSwitch } from "@/components/bento/layout-switch";
+import { LayoutHeading, LayoutSwitch } from "@/components/bento/layout-switch";
 import { BentoHome } from "@/components/bento/bento-home";
 import { Section } from "@/components/section";
 import { GithubActivity } from "@/components/github-activity";
 import { ProjectRow } from "@/components/project-row";
+import { ToolboxList } from "@/components/toolbox-list";
 import { projects } from "@/content/projects";
-import { experience, toolbox } from "@/content/profile";
+import { experience } from "@/content/profile";
 import { site } from "@/content/site";
-import { pageMetadata } from "@/lib/seo";
+import { jsonLd, pageMetadata, profilePageJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({ description: site.description, path: "/" });
 
@@ -22,24 +23,32 @@ const featured = projects.find((p) => p.featured)!;
 const selected = projects.filter((p) => !p.featured).slice(0, 4);
 
 export default function HomePage() {
-  return <LayoutSwitch bento={<BentoHome />} standard={<StandardHome />} />;
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(profilePageJsonLd) }} />
+      <LayoutSwitch bento={<BentoHome />} standard={<StandardHome />} />
+    </>
+  );
 }
 
 function StandardHome() {
   return (
     <>
-      <div className="mx-auto grid max-w-[1180px] gap-12 px-5 pt-14 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:pt-24">
+      {/* In the kinetic theme the hero plays as one entrance: photo, headline word by word,
+          then the rest in order (.hero-in and --delay, see globals.css). */}
+      <div className="hero mx-auto grid max-w-[1180px] gap-12 px-5 pt-14 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:pt-24">
         <div className="lg:col-span-7 lg:pr-6">
-          <ProfilePhoto size={160} className="mb-7 size-24 rounded-[1.75rem] border border-line shadow-xl shadow-black/10 sm:size-28" />
+          <ProfilePhoto size={160} className="hero-in mb-7 size-24 rounded-[1.75rem] border border-line shadow-xl shadow-black/10 sm:size-28" />
           <p aria-hidden className="only-terminal mb-4 text-sm text-ink-2">
             <span className="text-accent">tanim@chattogram</span>:~$ cat about.txt
           </p>
           {/* Non-breaking hyphens (U+2011) keep "multi-tenant" and "real-time" on one line. */}
           <AnimatedHeading
+            inLayout
             text="I build multi‑tenant backends, real‑time systems and AI agents."
             className="text-[clamp(2rem,4.1vw,3.3rem)] font-extrabold leading-[1.08] tracking-[-0.04em]"
           />
-          <p className="mt-6 max-w-[56ch] text-lg text-ink-2">
+          <p className="hero-in mt-6 max-w-[56ch] text-lg text-ink-2 [--delay:1300ms]">
             I&apos;m Tanim, a full-stack AI engineer at{" "}
             <a href={site.employer.url} className="link text-ink" target="_blank" rel="noopener noreferrer">
               MeshEver
@@ -48,7 +57,7 @@ function StandardHome() {
             customer messages for businesses on seven channels. The trace shows how one of
             those replies gets made.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="hero-in mt-8 flex flex-wrap gap-3 [--delay:1500ms]">
             <a href={`mailto:${site.email}`} className="btn btn-solid">
               Email me
             </a>
@@ -56,11 +65,11 @@ function StandardHome() {
               Download résumé
             </a>
           </div>
-          <p className="mt-5 text-[0.9375rem] text-ink-2">
+          <p className="hero-in mt-5 text-[0.9375rem] text-ink-2 [--delay:1650ms]">
             Open to new roles, remote or on-site.
           </p>
         </div>
-        <div className="lg:col-span-5">
+        <div className="hero-in lg:col-span-5 [--delay:900ms] lg:[--hx:48px] lg:[--hy:0px]">
           <MessageTrace />
         </div>
       </div>
@@ -69,7 +78,7 @@ function StandardHome() {
 
       <Section id="work" title="Selected work" intro="Products I've built and shipped, most recent first.">
         <article className="reveal grid gap-6 md:grid-cols-[1.25fr_1fr] md:items-end">
-          <Link href={`/work/${featured.slug}`} className="group block overflow-hidden rounded-md border border-line">
+          <Link href={`/work/${featured.slug}`} className="featured-media group block overflow-hidden rounded-md border border-line">
             <Image
               src={featured.image}
               alt={featured.imageAlt}
@@ -79,7 +88,9 @@ function StandardHome() {
           </Link>
           <div>
             <p className="text-[0.9375rem] text-ink-2">{featured.kind}, current</p>
-            <h3 className="mt-1 text-[1.75rem] font-extrabold tracking-tight">{featured.title}</h3>
+            <LayoutHeading as="h3" className="mt-1 text-[1.75rem] font-extrabold tracking-tight">
+              {featured.title}
+            </LayoutHeading>
             <p className="mt-2 text-ink-2">{featured.summary}</p>
             <p className="mt-3 text-[0.9375rem]">{featured.stack.join(", ")}</p>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-[0.9375rem] font-medium">
@@ -138,14 +149,7 @@ function StandardHome() {
       </Section>
 
       <Section id="toolbox" title="What I work with" intro="Grouped by the problems they solve, not by logo.">
-        <dl className="grid gap-x-10 gap-y-6 sm:grid-cols-2">
-          {toolbox.map(({ group, items }) => (
-            <div key={group} className="reveal border-t border-line pt-4">
-              <dt className="font-bold">{group}</dt>
-              <dd className="mt-1 text-ink-2">{items.join(", ")}</dd>
-            </div>
-          ))}
-        </dl>
+        <ToolboxList />
       </Section>
 
       <Section id="activity" title="On GitHub" intro="I write code most days, in public where I can.">

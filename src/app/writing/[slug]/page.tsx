@@ -6,14 +6,12 @@ import { ArticleBody } from "@/components/article-body";
 import { SubscribeForm } from "@/components/forms";
 import { getPost, posts, type Post } from "@/content/posts";
 import { site } from "@/content/site";
-import { jsonLd, pageMetadata, personId } from "@/lib/seo";
+import { formatDate } from "@/lib/format-date";
+import { defaultImage, jsonLd, pageMetadata, personId } from "@/lib/seo";
 
 export function generateStaticParams() {
   return posts.map((p) => ({ slug: p.slug }));
 }
-
-const dateFormat = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
-const formatDate = (iso: string) => dateFormat.format(new Date(`${iso}T00:00:00Z`));
 
 export async function generateMetadata({ params }: PageProps<"/writing/[slug]">): Promise<Metadata> {
   const { slug } = await params;
@@ -36,17 +34,31 @@ function articleJsonLd(post: Post) {
   const url = `${site.url}/writing/${post.slug}`;
   return {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "@id": `${url}#article`,
-    headline: post.title,
-    description: post.excerpt,
-    url,
-    mainEntityOfPage: url,
-    datePublished: post.date,
-    keywords: post.topics.join(", "),
-    inLanguage: "en",
-    author: { "@id": personId },
-    publisher: { "@id": personId },
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${url}#article`,
+        headline: post.title,
+        description: post.excerpt,
+        url,
+        mainEntityOfPage: url,
+        // The site's Open Graph card, the same image social shares get.
+        image: new URL(defaultImage.url, site.url).href,
+        datePublished: post.date,
+        keywords: post.topics.join(", "),
+        inLanguage: "en",
+        author: { "@id": personId },
+        publisher: { "@id": personId },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+          { "@type": "ListItem", position: 2, name: "Writing", item: `${site.url}/writing` },
+          { "@type": "ListItem", position: 3, name: post.title, item: url },
+        ],
+      },
+    ],
   };
 }
 

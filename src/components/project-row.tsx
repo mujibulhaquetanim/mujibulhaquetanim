@@ -6,12 +6,13 @@ export function ProjectRow({ project }: { project: Project }) {
   return (
     <Link
       href={`/work/${project.slug}`}
-      className="reveal group grid gap-4 border-b border-line py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
+      className="project-row reveal group grid gap-4 border-b border-line py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
     >
-      <div className="hidden overflow-hidden rounded-[4px] border border-line sm:block">
+      {/* The alt text is for search; screen readers skip the thumbnail, the title says it all. */}
+      <div aria-hidden className="hidden overflow-hidden rounded-[4px] border border-line sm:block">
         <Image
           src={project.image}
-          alt=""
+          alt={project.imageAlt}
           sizes="144px"
           className={`thumb aspect-[4/3] w-full bg-white object-cover ${
             project.imagePosition === "top" ? "object-top" : "object-center"

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SubscribeForm } from "@/components/forms";
 import { PageIntro } from "@/components/section";
 import { posts } from "@/content/posts";
+import { formatDate } from "@/lib/format-date";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -10,9 +11,6 @@ export const metadata: Metadata = pageMetadata({
   description: "Articles by Mujibul Haque Tanim on backend architecture, real-time systems and AI.",
   path: "/writing",
 });
-
-const dateFormat = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
-const formatDate = (iso: string) => dateFormat.format(new Date(`${iso}T00:00:00Z`));
 
 export default function WritingPage() {
   const published = posts.filter((p) => p.status === "published");
