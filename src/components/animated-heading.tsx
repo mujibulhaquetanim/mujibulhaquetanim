@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment, useEffect, useState, type ElementType, type ReactNode } from "react";
-import { useReducedMotion } from "motion/react";
+import { Fragment, useEffect, useState, type ReactNode } from "react";
+import { useLayoutHeadingTag, type HeadingTag } from "@/components/bento/layout-switch";
 import { useTheme } from "@/lib/theme";
+import { useHydratedReducedMotion } from "@/lib/use-reduced-motion";
 
 /*
   A heading whose entrance depends on the theme:
@@ -11,18 +12,23 @@ import { useTheme } from "@/lib/theme";
     kinetic      — words rise out of a mask one after another (CSS, see .word-rise)
   The real text is always in the DOM for screen readers and search engines, and an
   invisible copy reserves the final size so nothing shifts while it animates.
+  `inLayout` marks a heading in the standard home layout (see useLayoutHeadingTag).
 */
 export function AnimatedHeading({
   text,
-  as: Tag = "h1",
+  as = "h1",
+  inLayout = false,
   className,
 }: {
   text: string;
-  as?: ElementType;
+  as?: HeadingTag;
+  inLayout?: boolean;
   className?: string;
 }) {
   const theme = useTheme();
-  const reduceMotion = useReducedMotion();
+  const layoutTag = useLayoutHeadingTag(as);
+  const { Tag, marker } = inLayout ? layoutTag : { Tag: as, marker: undefined };
+  const reduceMotion = useHydratedReducedMotion();
   const typing = !reduceMotion && theme === "terminal";
   const rising = !reduceMotion && theme === "kinetic";
   const [typed, setTyped] = useState<{ theme: string | null; shown: string }>({ theme: null, shown: text });
@@ -53,7 +59,7 @@ export function AnimatedHeading({
       <Fragment key={i}>
         {i > 0 && " "}
         <span className="word-mask">
-          <span className="word-rise" style={{ animationDelay: `${120 + i * 70}ms` }}>
+          <span className="word-rise" style={{ animationDelay: `${250 + i * 110}ms` }}>
             {word}
           </span>
         </span>
@@ -62,7 +68,7 @@ export function AnimatedHeading({
   }
 
   return (
-    <Tag className={className}>
+    <Tag data-heading={marker} className={className}>
       <span className="sr-only">{text}</span>
       <span aria-hidden className="grid">
         <span className="invisible col-start-1 row-start-1">

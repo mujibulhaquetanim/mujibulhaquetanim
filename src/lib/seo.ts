@@ -3,7 +3,7 @@ import { site, socials } from "@/content/site";
 
 type OgImage = { url: string; width?: number; height?: number; alt?: string };
 
-const defaultImage: OgImage = {
+export const defaultImage: OgImage = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
@@ -47,46 +47,49 @@ export function pageMetadata({
 }
 
 export const personId = `${site.url}/#person`;
+const websiteId = `${site.url}/#website`;
+
+const person = {
+  "@type": "Person",
+  "@id": personId,
+  name: site.name,
+  alternateName: site.shortName,
+  url: site.url,
+  image: site.photo,
+  email: `mailto:${site.email}`,
+  jobTitle: site.role,
+  description: site.description,
+  worksFor: { "@type": "Organization", ...site.employer },
+  address: { "@type": "PostalAddress", addressLocality: "Chattogram", addressCountry: "BD" },
+  alumniOf: [
+    { "@type": "CollegeOrUniversity", name: "International Islamic University Chittagong" },
+    { "@type": "CollegeOrUniversity", name: "Port City International University" },
+  ],
+  sameAs: socials.map((s) => s.url),
+  knowsAbout: [
+    "TypeScript",
+    "NestJS",
+    "Next.js",
+    "PostgreSQL",
+    "Multi-tenant SaaS",
+    "WebRTC",
+    "Real-time systems",
+    "LangGraph",
+    "Retrieval-augmented generation",
+    "AI agents",
+    "AWS",
+    "Docker",
+  ],
+};
 
 // Site-wide structured data: who the site is about, and the site itself.
 export const siteJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Person",
-      "@id": personId,
-      name: site.name,
-      alternateName: site.shortName,
-      url: site.url,
-      image: site.photo,
-      email: `mailto:${site.email}`,
-      jobTitle: site.role,
-      description: site.description,
-      worksFor: { "@type": "Organization", ...site.employer },
-      address: { "@type": "PostalAddress", addressLocality: "Chattogram", addressCountry: "BD" },
-      alumniOf: [
-        { "@type": "CollegeOrUniversity", name: "International Islamic University Chittagong" },
-        { "@type": "CollegeOrUniversity", name: "Port City International University" },
-      ],
-      sameAs: socials.map((s) => s.url),
-      knowsAbout: [
-        "TypeScript",
-        "NestJS",
-        "Next.js",
-        "PostgreSQL",
-        "Multi-tenant SaaS",
-        "WebRTC",
-        "Real-time systems",
-        "LangGraph",
-        "Retrieval-augmented generation",
-        "AI agents",
-        "AWS",
-        "Docker",
-      ],
-    },
+    person,
     {
       "@type": "WebSite",
-      "@id": `${site.url}/#website`,
+      "@id": websiteId,
       url: site.url,
       name: site.name,
       description: site.description,
@@ -94,6 +97,18 @@ export const siteJsonLd = {
       publisher: { "@id": personId },
     },
   ],
+};
+
+// The home page is a profile page about one person; Google can show it as such in results.
+export const profilePageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${site.url}/#profilepage`,
+  url: site.url,
+  name: `${site.name}, ${site.role}`,
+  inLanguage: "en",
+  isPartOf: { "@id": websiteId },
+  mainEntity: person,
 };
 
 // JSON for a <script type="application/ld+json">; "<" is escaped so it can never close the tag.

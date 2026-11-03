@@ -19,15 +19,16 @@ const wrap = (min: number, max: number, v: number) => {
   return ((((v - min) % range) + range) % range) + min;
 };
 
-// One row of giant type. It drifts on its own, speeds up and skews with scroll speed,
-// and flips direction when the visitor scrolls back up.
+// One row of giant type. It drifts slowly on its own, speeds up (to at most three times)
+// and leans with scroll speed, and flips direction when the visitor scrolls back up.
 function Row({ items, baseVelocity }: { items: string[]; baseVelocity: number }) {
   const reduceMotion = useReducedMotion();
   const x = useMotionValue(0);
   const { scrollY } = useScroll();
-  const velocity = useSpring(useVelocity(scrollY), { damping: 50, stiffness: 400 });
-  const boost = useTransform(velocity, [0, 1000], [0, 5], { clamp: false });
-  const skewX = useTransform(velocity, [-2500, 2500], [10, -10]);
+  // A soft spring so the band eases into and out of a scroll instead of snapping.
+  const velocity = useSpring(useVelocity(scrollY), { damping: 60, stiffness: 140 });
+  const boost = useTransform(velocity, [-2000, 0, 2000], [-2, 0, 2]);
+  const skewX = useTransform(velocity, [-3000, 3000], [5, -5]);
   // Two copies of the row; moving one copy's width (50%) loops seamlessly.
   const translate = useTransform(x, (v) => `${wrap(-50, 0, v)}%`);
   const direction = useRef(1);
@@ -67,8 +68,8 @@ export function VelocityMarquee() {
     // Clipped so the tilted band's corners never cause sideways scrolling.
     <div aria-hidden className="mt-16 overflow-x-clip py-6 lg:mt-24">
       <div className="marquee-band -mx-4 -rotate-2 select-none border-y border-line py-4 text-[clamp(2.5rem,7.5vw,6.5rem)] font-extrabold leading-[1.05] tracking-[-0.03em]">
-        <Row items={focusAreas.map((f) => f.title)} baseVelocity={-3} />
-        <Row items={coreStack} baseVelocity={3} />
+        <Row items={focusAreas.map((f) => f.title)} baseVelocity={-1.2} />
+        <Row items={coreStack} baseVelocity={1.2} />
       </div>
     </div>
   );

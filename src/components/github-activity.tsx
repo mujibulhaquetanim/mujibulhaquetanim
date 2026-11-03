@@ -1,21 +1,9 @@
 import { getActivity } from "@/lib/github";
 import { site } from "@/content/site";
+import { formatDate } from "@/lib/format-date";
 
-const LEVELS = [
-  "bg-line",
-  "bg-accent/30",
-  "bg-accent/55",
-  "bg-accent/80",
-  "bg-accent",
-];
-
-const dateFormat = new Intl.DateTimeFormat("en-GB", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "UTC",
-});
-const fmt = (iso: string) => dateFormat.format(new Date(`${iso}T00:00:00Z`));
+// Contribution levels 0-4, coloured by .gh-day in globals.css.
+const level = (n: number) => Math.min(Math.max(n, 0), 4);
 
 export async function GithubActivity() {
   const activity = await getActivity(site.githubUser);
@@ -44,7 +32,7 @@ export async function GithubActivity() {
         {showStreak ? (
           <>
             , and at least one every day for {streak.days.toLocaleString("en-US")} days, since{" "}
-            {fmt(streak.since!)}.
+            {formatDate(streak.since!)}.
           </>
         ) : (
           "."
@@ -59,11 +47,7 @@ export async function GithubActivity() {
       >
         {weeks.flatMap((week) =>
           week.map((day) => (
-            <span
-              key={day.date}
-              title={`${day.count} on ${fmt(day.date)}`}
-              className={`aspect-square rounded-[2px] ${LEVELS[Math.min(Math.max(day.level, 0), 4)]}`}
-            />
+            <span key={day.date} title={`${day.count} on ${formatDate(day.date)}`} className="gh-day" data-l={level(day.level)} />
           )),
         )}
       </div>

@@ -4,6 +4,16 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
+  // No "X-Powered-By: Next.js" header; it tells crawlers and scanners nothing useful.
+  poweredByHeader: false,
+  experimental: {
+    // Turbopack's persistent caches served a stale compile of globals.css (the Tailwind
+    // loader's output) to both `next dev` and `next build`, so CSS changes silently went
+    // missing. Netlify keeps .next/cache between deploys, so a deploy could too. Builds
+    // here are small; fresh output is worth the extra seconds.
+    turbopackFileSystemCacheForDev: false,
+    turbopackFileSystemCacheForBuild: false,
+  },
   // Netlify's COMMIT_REF, baked in at build so GET /api/notify can say which commit is live.
   env: { BUILD_COMMIT: process.env.COMMIT_REF ?? "local" },
   images: {

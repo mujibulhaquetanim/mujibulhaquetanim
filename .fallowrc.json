@@ -1,0 +1,7 @@
+{
+  // fallow (codebase analyzer). JSONC: fallow reads these comments; generic JSON tools may not.
+  // Entry points come from its Next.js plugin (app routes, config), so none are listed here.
+  "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
+  // Loaded by name as a Turbopack loader string in next.config.ts, never imported.
+  "ignoreDependencies": ["@tailwindcss/turbopack"]
+}
