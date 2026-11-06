@@ -590,16 +590,9 @@ html:not([data-theme="bento"]) .only-bento-layout,
   display: none;
 }
 
-/* The bento home is one screen with its own contact tile, so the footer would repeat it. */
-[data-theme="bento"] body:has([data-bento-home]) > footer {
-  display: none;
-}
-
-/* On the bento home the header spans the same width as the tile grid. */
-[data-theme="bento"] body:has([data-bento-home]) > header > div {
-  max-width: 90rem;
-  padding-inline: 1rem;
-}
+/* The bento home hides the footer and widens the header from its own stylesheet
+   (BentoHomeStyles), not a body:has() rule here: pages hidden by <Activity> stay in the
+   DOM, so a :has() rule would leak onto the next page. */
 
 /* Layered so tracking and font utilities on the tiles still win. */
 @layer base {

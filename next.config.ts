@@ -49,6 +49,7 @@ const nextConfig: NextConfig = {
       { source: "/blogs", destination: "/writing", permanent: true },
       { source: "/work-updates", destination: "/", permanent: true },
       { source: "/coming-soon", destination: "/work", permanent: true },
+      { source: "/work/tinder-clone", destination: "/work/social-matchmaking", permanent: true },
     ];
   },
 };

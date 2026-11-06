@@ -110,6 +110,10 @@ The look is deliberately not a template. Keep it that way:
   in `localStorage`).
 - Never branch render output on `useReducedMotion()` directly; it differs between server and
   first client render. Use `useHydratedReducedMotion()` from `src/lib/use-reduced-motion.ts`.
+- No `body:has(...)` rules for page-level styles. With Cache Components a page you leave
+  stays in the DOM, hidden by `<Activity>`, so the rule leaks onto the next page (the bento
+  home once hid the footer site-wide). Render a `<style>` from the page and disable it in a
+  ref cleanup, as `BentoHomeStyles` does.
 - Base element styles live in `@layer base` and component classes in `@layer components`.
   Unlayered CSS beats Tailwind utilities regardless of specificity, so only `[data-theme=…]`
   overrides should sit outside a layer.

@@ -12,6 +12,7 @@ import { ImpactTile } from "@/components/bento/impact-tile";
 import { CareerTile } from "@/components/bento/career-tile";
 import { TechTile } from "@/components/bento/tech-tile";
 import { ContactTile } from "@/components/bento/contact-tile";
+import { BentoHomeStyles } from "@/components/bento/bento-home-styles";
 import { coreStack } from "@/content/profile";
 import { site } from "@/content/site";
 
@@ -45,6 +46,7 @@ export function BentoHome() {
       data-bento-home
       className="w-full overflow-x-hidden bg-[radial-gradient(rgba(255,255,255,0.07)_1px,transparent_1px)] [background-size:22px_22px]"
     >
+      <BentoHomeStyles />
       <SpotlightGrid className="mx-auto grid h-auto max-w-[90rem] auto-rows-auto grid-cols-1 gap-2 px-3 py-2 sm:gap-3 sm:px-4 md:grid-cols-2 lg:min-h-[calc(100dvh-3.5rem-1px)] lg:grid-cols-12 lg:grid-rows-[auto_minmax(min-content,1fr)_minmax(min-content,10dvh)] lg:gap-2 lg:px-4 xl:gap-4">
         <Cell delay={0} className="col-span-full md:col-span-2 lg:col-span-6">
           <div className="tile flex h-full flex-col gap-3 p-4 sm:gap-4 sm:p-5 lg:gap-2 lg:p-4 xl:gap-4 xl:p-6 2xl:gap-6 2xl:p-8 short:gap-2 short:p-4">
