@@ -53,23 +53,35 @@ export const projects: Project[] = [
     title: "Shopmart",
     kind: "Multi-vendor e-commerce",
     summary:
-      "Multi-vendor store with role-based admin, inventory, order tracking and tenant isolation in PostgreSQL.",
+      "Multi-vendor store with vendor and admin dashboards, delivery tracking and tenant isolation in PostgreSQL.",
     description:
-      "Multi-vendor e-commerce platform with a role-based admin dashboard, CASL authorization, product and inventory management, order tracking, and Cryptomous payment integration. Tenant data is isolated with PostgreSQL row-level security behind a modular NestJS backend.",
+      "Multi-vendor e-commerce platform with a Next.js 16 frontend and a modular NestJS backend. Tenant data is isolated in PostgreSQL with row-level security, and orders run in database transactions so payment, inventory and the order record always agree. Vendors and admins get separate dashboards with attribute-based access control (CASL), real-time delivery tracking and notifications on several channels. Payments go through Cryptomus.",
     stack: [
       "TypeScript",
-      "Next.js",
+      "Next.js 16",
       "NestJS",
       "PostgreSQL (RLS)",
+      "Drizzle ORM",
       "CASL",
       "JWT auth",
-      "Cryptomous",
-      "Tailwind",
+      "Cryptomus",
     ],
     image: shopmart,
     imageAlt: "Shopmart admin dashboard",
     imagePosition: "top",
     live: "https://shopmart.mujibulhaquetanim.dev/",
+  },
+  {
+    slug: "social-matchmaking",
+    title: "Social match-making",
+    kind: "Video chat, reels and swipe matching",
+    summary:
+      "Meet people through live video chat, video reels and swiping, with matches drawn from a Neo4j graph.",
+    description:
+      "Social match-making app built as a monorepo: live video chat, video reels and Tinder-style swiping. Calls run on WebRTC and scale horizontally with Socket.io, NATS and Redis, and a NATS-to-PostgreSQL pipeline acknowledges messages in under 100 ms. Reels are transcoded to HLS with FFmpeg on AWS ECS. Discovery and matching read relationships from a Neo4j graph. Sessions use JWT, rate limiting is backed by Redis, database writes are batched, and an OpenAI SDK chatbot is built in.",
+    stack: ["WebRTC", "Socket.io", "NATS", "Redis", "PostgreSQL", "Neo4j", "FFmpeg and HLS", "AWS ECS"],
+    image: tinderClone,
+    imageAlt: "Swiping through profile cards in the match-making app",
   },
   {
     slug: "aatbaazar",
@@ -140,18 +152,6 @@ export const projects: Project[] = [
     imageAlt: "YumDispatch restaurant menu",
     imagePosition: "top",
     live: "https://yumdispatchbd.netlify.app/",
-  },
-  {
-    slug: "tinder-clone",
-    title: "Tinder Clone",
-    kind: "Dating app",
-    summary:
-      "Swipeable profiles and matching, with connections modelled as a Neo4j graph.",
-    description:
-      "Dating app inspired by Tinder, with swipeable profile cards and matching. Matches and connections are modelled in a Neo4j graph database.",
-    stack: ["Next.js", "Neo4j", "shadcn/ui"],
-    image: tinderClone,
-    imageAlt: "Tinder clone swiping through profile cards",
   },
 ];
 

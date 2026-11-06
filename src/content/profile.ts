@@ -15,15 +15,15 @@ export const experience = [
   },
   {
     year: "2025",
-    title: "3Zero Digital",
+    title: "Full-Stack Developer, 3Zero Digital",
     detail:
-      "Improved backend throughput by 45% and shipped an agentic RAG system on MCP servers.",
+      "Designed a worker-pool architecture with batched writes that raised backend throughput by 45% and cut latency by half. Shipped agentic RAG on MCP servers for support triage, which cut support tickets by about 25%, and added structured logging, tracing and rate limiting.",
   },
   {
     year: "2024",
     title: "Freelance full-stack development",
     detail:
-      "Delivered client systems with secure real-time APIs and performance tuning.",
+      "Built backends, frontends and database schemas for clients, with a focus on authentication, real-time APIs and performance tuning.",
   },
   {
     year: "2023",
@@ -79,11 +79,11 @@ export const principles = [
 export const toolbox = [
   {
     group: "Backend",
-    items: ["TypeScript", "NestJS", "Node.js", "Fastify", "GraphQL", "Go", "Zod"],
+    items: ["TypeScript", "NestJS", "Node.js", "Fastify", "GraphQL", "Go", "Python", "Zod"],
   },
   {
     group: "Real-time",
-    items: ["WebRTC", "Socket.io", "RabbitMQ", "Kafka", "Redis", "FFmpeg", "HLS"],
+    items: ["WebRTC", "Socket.io", "NATS", "RabbitMQ", "Kafka", "Redis", "FFmpeg", "HLS"],
   },
   {
     group: "AI",
@@ -91,15 +91,15 @@ export const toolbox = [
   },
   {
     group: "Data",
-    items: ["PostgreSQL", "Drizzle", "MongoDB", "Neo4j", "Redis", "Pandas"],
+    items: ["PostgreSQL", "Drizzle", "MongoDB", "Neo4j", "Redis", "Qdrant", "Pandas"],
   },
   {
     group: "Delivery",
-    items: ["AWS", "Docker", "GitHub Actions", "Cloudflare", "NGINX", "Linux"],
+    items: ["AWS", "Docker", "Terraform", "GitHub Actions", "Cloudflare", "NGINX", "Linux"],
   },
   {
     group: "Frontend",
-    items: ["Next.js", "React", "TanStack Query", "Redux", "Tailwind CSS", "shadcn/ui"],
+    items: ["Next.js", "React", "React Native", "TanStack Query", "Redux", "Tailwind CSS", "shadcn/ui"],
   },
   {
     group: "Auth and access",
