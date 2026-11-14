@@ -82,6 +82,7 @@ export const projects: Project[] = [
     stack: ["WebRTC", "Socket.io", "NATS", "Redis", "PostgreSQL", "Neo4j", "FFmpeg and HLS", "AWS ECS"],
     image: tinderClone,
     imageAlt: "Swiping through profile cards in the match-making app",
+    source: "https://github.com/mujibulhaquetanim/Chatgaiya-Video-Chat",
   },
   {
     slug: "aatbaazar",

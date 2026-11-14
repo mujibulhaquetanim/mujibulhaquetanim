@@ -1,16 +1,18 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "motion/react";
+import type { CSSProperties } from "react";
 import { LuArrowUpRight } from "react-icons/lu";
 import { milestones } from "@/content/profile";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
+/*
+  The rail draws down and the milestones slide in with CSS animations, not motion's
+  whileInView: that one server-renders the list at opacity 0, so it stayed invisible
+  until JavaScript ran (or for good, if it failed), and it moved regardless of the
+  reduced-motion setting. The global reduced-motion rule ends these instantly.
+*/
 export function CareerTile() {
   return (
     <Link href="/about" className="tile tile-link group flex h-full flex-col overflow-hidden p-3 xl:p-4">
-      <h2 className="flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.14em] text-slate-300 xl:text-sm">
+      <h2 className="flex items-center gap-1 text-base font-bold leading-tight text-white xl:text-lg">
         Career path
         <LuArrowUpRight
           aria-hidden
@@ -19,23 +21,15 @@ export function CareerTile() {
       </h2>
 
       <ol className="relative mt-2.5 flex flex-1 flex-col justify-between gap-2 pl-5">
-        {/* Rail draws downward once the tile is on screen. */}
-        <motion.span
+        <span
           aria-hidden
-          className="absolute bottom-2 left-[5px] top-1.5 w-px origin-top bg-gradient-to-b from-signal via-white/30 to-white/10"
-          initial={{ scaleY: 0 }}
-          whileInView={{ scaleY: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
+          className="rail-in absolute bottom-2 left-[5px] top-1.5 w-px origin-top bg-gradient-to-b from-signal via-white/30 to-white/10"
         />
         {milestones.map(({ year, title, detail, current }, i) => (
-          <motion.li
+          <li
             key={`${year}-${title}`}
-            className="relative min-w-0"
-            initial={{ opacity: 0, x: -8 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 + i * 0.12, ease: EASE }}
+            className="slide-in relative min-w-0"
+            style={{ "--delay": `${400 + i * 120}ms` } as CSSProperties}
           >
             <span
               aria-hidden
@@ -48,10 +42,10 @@ export function CareerTile() {
             <p className="flex items-baseline gap-2 text-sm leading-tight lg:text-xs xl:text-sm">
               <span className="truncate font-semibold text-white">{title}</span>
               {current && <span className="shrink-0 text-[10px] font-semibold text-signal">Now</span>}
-              <span className="ml-auto shrink-0 text-[10px] tabular-nums text-slate-400 xl:text-[11px]">{year}</span>
+              <span className="ml-auto shrink-0 text-[10px] tabular-nums text-slate-300 xl:text-[11px]">{year}</span>
             </p>
             <p className="truncate text-[11px] text-slate-300 xl:text-xs">{detail}</p>
-          </motion.li>
+          </li>
         ))}
       </ol>
     </Link>

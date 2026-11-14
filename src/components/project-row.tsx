@@ -9,7 +9,7 @@ export function ProjectRow({ project }: { project: Project }) {
       className="project-row reveal group grid gap-4 border-b border-line py-5 sm:grid-cols-[9rem_1fr] sm:gap-6"
     >
       {/* The alt text is for search; screen readers skip the thumbnail, the title says it all. */}
-      <div aria-hidden className="hidden overflow-hidden rounded-[4px] border border-line sm:block">
+      <div aria-hidden className="hidden self-start overflow-hidden rounded-[4px] border border-line sm:block">
         <Image
           src={project.image}
           alt={project.imageAlt}

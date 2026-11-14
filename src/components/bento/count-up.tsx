@@ -22,10 +22,17 @@ export function CountUp({ to, suffix = "", duration = 1.1 }: { to: number; suffi
     return () => controls.stop();
   }, [inView, reduceMotion, to, duration]);
 
+  // The counting digits are decoration; screen readers and the server HTML get the real figure.
   return (
-    <span ref={ref} className="tabular-nums">
-      {value}
-      {suffix}
-    </span>
+    <>
+      <span ref={ref} aria-hidden className="tabular-nums">
+        {value}
+        {suffix}
+      </span>
+      <span className="sr-only">
+        {to}
+        {suffix}
+      </span>
+    </>
   );
 }

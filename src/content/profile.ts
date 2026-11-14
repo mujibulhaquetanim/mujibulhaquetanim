@@ -5,7 +5,7 @@ export const experience = [
     year: "2026",
     title: "Full-Stack AI Engineer, MeshEver",
     detail:
-      "Building Zasmate, a multi-channel AI customer messaging SaaS, from the multi-tenant backend to the agent and the team inbox.",
+      "Building Zasmate, a multi-tenant AI SaaS that answers customers for businesses across seven channels in Bangla, Banglish and English. Enforced tenant isolation with PostgreSQL row-level security, with a startup check that fails if the connection could bypass it. Built the RAG agent (pgvector plus keyword search) that hands off to a person when it isn't confident, and the Meta Graph API webhooks for messages and comment replies.",
     current: true,
   },
   {

@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, IBM_Plex_Sans, Instrument_Serif, JetBrains_Mono, S
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { KineticFx } from "@/components/kinetic-fx";
+import { MotionProvider } from "@/components/motion-provider";
 import { site } from "@/content/site";
 import { jsonLd, siteJsonLd } from "@/lib/seo";
 import { themeBootScript } from "@/lib/theme-config";
@@ -81,7 +82,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   // Matches the default (Bento) page colour.
-  themeColor: "#334155",
+  themeColor: "#2d3e5d",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -106,7 +107,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <SiteHeader />
         <main id="main" className="flex-1">
-          {children}
+          <MotionProvider>{children}</MotionProvider>
         </main>
         <SiteFooter />
         <script
