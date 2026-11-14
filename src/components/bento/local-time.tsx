@@ -28,7 +28,7 @@ export function LocalTime() {
         <time dateTime={now?.toISOString()} className="tabular-nums">
           {now ? timeFormat.format(now) : "--:--"}
         </time>
-        <span className="text-slate-400">(UTC+6)</span>
+        <span className="text-slate-300">(UTC+6)</span>
       </span>
     </p>
   );

@@ -25,6 +25,11 @@ repo). Never overwrite it with project docs; put those here.
   from real Zasmate troubleshooting notes: keep them in plain first person, and never copy in
   hosts, IPs, app or Page ids, tokens or tenant names.
 - `src/app/`: routes. `/`, `/work`, `/work/[slug]`, `/about`, `/writing`, plus sitemap, robots, OG image.
+- `src/proxy.ts` decides before rendering: unknown `/work/*` and `/writing/*` slugs, and
+  `/recommendations` while it is switched off, rewrite to the static 404; url-only posts
+  get a 307. The slug pages read `params`, so they sit inside `loading.tsx` Suspense
+  boundaries (needed for instant client navigation); a `notFound()` or `redirect()` there
+  would come after streaming starts (a 500 on Netlify), so keep those decisions in the proxy.
 - `src/components/`: `message-trace.tsx` is the interactive hero; `section.tsx` holds the shared section layout.
 - `src/lib/seo.ts`: `pageMetadata()` builds each page's full metadata (canonical, Open Graph,
   Twitter). Next replaces nested metadata objects per segment, so pages must use it rather
@@ -88,8 +93,9 @@ The look is deliberately not a template. Keep it that way:
   - **bento**: the original Vite site's slate tile grid and the default theme, because it
     shows nearly everything on one screen. It swaps the home page for a one-screen bento
     layout (`src/components/bento/`) and uses the original fonts (IBM Plex Sans, Bricolage
-    Grotesque) and tile styles. Other pages keep their structure
-    with bento colours. `LayoutSwitch` server-renders both home layouts; CSS shows the right
+    Grotesque) and tile styles. The ground is the original blue-grey slate, tuned cooler and richer, with lighter glass
+    tiles on top (lit top edge, a border that lights up under the cursor) and a faint sky
+    glow (sky and indigo) behind every bento page. Other pages keep their structure with bento colours. `LayoutSwitch` server-renders both home layouts; CSS shows the right
     one before paint and the hidden one unmounts after hydration. So crawlers reading raw
     HTML see one h1 and no repeated headings, headings in the standard layout use
     `LayoutHeading` (or `AnimatedHeading inLayout`): a `div[data-heading]` until the theme

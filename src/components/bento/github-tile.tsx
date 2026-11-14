@@ -13,6 +13,7 @@ const dateFormat = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
   timeZone: "UTC",
 });
+const shortDate = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
 const fmt = (iso: string) => dateFormat.format(new Date(`${iso}T00:00:00Z`));
 const plural = (n: number) => `${n.toLocaleString("en-US")} ${n === 1 ? "contribution" : "contributions"}`;
 
@@ -29,20 +30,10 @@ export async function GithubTile() {
       className="tile flex h-full w-full flex-col overflow-hidden p-4 text-slate-100 [--cell:10px] xl:p-5 xl:[--cell:12px] 2xl:[--cell:14px]"
     >
       <div className="mb-3 flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h2 className="text-base font-bold leading-tight text-white xl:text-lg">GitHub activity</h2>
-          <p className="mt-1 text-xs text-slate-300 xl:text-[13px]">
-            {activity ? `${plural(activity.totalLastYear)} in the last year` : "Activity couldn't be loaded"}
-            {streak > 0 && (
-              <>
-                , with a{" "}
-                <span className="font-semibold text-signal">{streak.toLocaleString("en-US")}-day streak</span>
-              </>
-            )}
-          </p>
-        </div>
+        <h2 className="min-w-0 text-base font-bold leading-tight text-white xl:text-lg">GitHub activity</h2>
         <div className="flex shrink-0 items-center gap-3">
-          <div className="hidden items-center gap-1 text-[11px] text-slate-400 sm:flex" aria-hidden>
+          {/* The legend only means something next to a calendar; the failure note below explains itself. */}
+          <div className={`hidden items-center gap-1 text-[11px] text-slate-300 ${activity ? "sm:flex" : ""}`} aria-hidden>
             <span>Less</span>
             {LEVELS.map((l) => (
               <span key={l} className="gh-cell" data-l={l} />
@@ -64,8 +55,32 @@ export async function GithubTile() {
         </div>
       </div>
 
+      {/* The year in three figures, above the calendar they summarise. */}
+      {activity && (
+        <dl className="mb-3 grid grid-cols-3 gap-2 short:mb-2">
+          {[
+            { term: "Contributions in the last year", value: activity.totalLastYear.toLocaleString("en-US") },
+            ...(streak > 0 ? [{ term: "Day streak", value: streak.toLocaleString("en-US"), signal: true }] : []),
+            ...(busiest && busiest.count > 0
+              ? [{ term: `Busiest day, ${shortDate.format(new Date(`${busiest.date}T00:00:00Z`))}`, value: busiest.count.toLocaleString("en-US") }]
+              : []),
+          ].map(({ term, value, signal }) => (
+            <div key={term} className="flex min-w-0 flex-col-reverse gap-1 border-l border-white/10 pl-3">
+              <dt className="text-[10px] leading-tight text-slate-300 xl:text-xs">{term}</dt>
+              <dd
+                className={`font-[family-name:var(--font-bricolage)] text-xl font-bold leading-none tracking-tight xl:text-3xl short:text-xl ${
+                  signal ? "text-signal" : "text-white"
+                }`}
+              >
+                {value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
       {activity ? (
-        <div className="my-auto min-h-0 overflow-x-auto py-0.5 [direction:rtl]">
+        <div className="mt-auto min-h-0 overflow-x-auto py-0.5 [direction:rtl]">
           {/* rtl keeps the most recent weeks in view when the calendar is wider than the tile */}
           <div
             role="img"
@@ -95,11 +110,6 @@ export async function GithubTile() {
         </p>
       )}
 
-      <p className="mt-2 truncate text-[11px] text-slate-400 xl:text-xs">
-        {activity && busiest && busiest.count > 0
-          ? `Busiest day was ${fmt(busiest.date)} with ${plural(busiest.count)}.`
-          : `Matches the public calendar on @${site.githubUser}'s GitHub profile.`}
-      </p>
     </section>
   );
 }
