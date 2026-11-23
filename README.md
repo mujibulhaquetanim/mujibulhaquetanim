@@ -66,12 +66,5 @@ I've pushed code every day since 1 January 2024.
 
 ## Open to
 
-Full-stack and backend roles, remote or on-site, and project collaborations. Email is the fastest
+Full-stack and backend roles, remote or on-site, and project collaborations. Email/Linkedin is the fastest
 way to reach me.
-pnpm dev      # http://localhost:3000
-pnpm build    # production build and type check
-```
-
-All copy and project data live in `src/content/`. Design rules are in `CLAUDE.md`.
-
-</details>
