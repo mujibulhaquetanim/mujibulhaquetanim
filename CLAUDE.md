@@ -7,7 +7,10 @@ Partial Prefetching, React Compiler), Tailwind CSS 4 and `motion`. Rebuilt in No
 from the old Vite version in `Frontend-Functionalities/Portfolios/mujibv.1`.
 
 `README.md` at the root is the **GitHub profile README** (this is the `username/username`
-repo). Never overwrite it with project docs; put those here.
+repo). It showcases the owner's work only: never add project, build or setup docs to it.
+Human-facing project docs go in `PROJECT.md`, agent notes here. Don't create
+`.github/README.md` or `docs/README.md`: GitHub can show those on the repo page in place of the
+profile README.
 
 ## Commands
 
